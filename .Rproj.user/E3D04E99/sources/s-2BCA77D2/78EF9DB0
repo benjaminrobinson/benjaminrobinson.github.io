@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550983817031.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3025079498",
+    "id" : "78EF9DB0",
+    "lastKnownWriteTime" : 1550987256,
+    "last_content_update" : 1550987256475,
+    "path" : "C:/Users/benjr/Desktop/Projects/benjaminrobinson.github.io/config.toml",
+    "project_path" : "config.toml",
+    "properties" : {
+        "cursorPosition" : "63,0",
+        "scrollLine" : "30",
+        "source_window_id" : ""
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "toml"
+}
