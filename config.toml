@@ -1,0 +1,64 @@
+baseurl = "https://benjaminrobinson.github.io/"
+title = "Benjamin Robinson - Personal Website & Blog"
+theme = "ghostwriter"
+languageCode = "en-us"
+copyright = "Benjamin Robinson"
+disqusShortname = "XXX"
+googleAnalytics = "XXX"
+
+[Privacy]
+
+[Privacy.disqus]
+    disable = true
+
+[Privacy.googleAnalytics]
+    anonymizeIP = true
+    respectDoNotTrack = true
+    useSessionStorage = false
+
+[Author]
+    name = "Benjamin Robinson"
+    profile = "https://benjaminrobinson.github.io"
+
+[Taxonomies]
+    tag = "tags"
+
+[Params]
+    intro = true
+    headline = "Benjamin Robinon"
+    description = "Personal Website & Blog"
+    github = "https://github.com/benjaminrobinson"
+    gitlab = ""
+    linkedin = "https://linkedin.com/in/benjrobinson2/"
+    gplus = ""
+    twitter = "https://twitter.com/benj_robinson"
+    stackoverflow = ""
+    email = "benj.robinson2@gmail.com"
+    opengraph = true
+    shareTwitter = true
+    shareFacebook = true
+    shareGooglePlus = true
+    shareLinkedIn = false
+    dateFormat = "Mon, Jan 2, 2006"
+    highlightJsUrl = ""
+    highlightJsLocalUrl = ""
+    exponeaJsUrl = ""
+    exponeaTarget = ""
+    exponeaToken = ""
+    exponeaTrackVisits = false
+    readingTime = true
+    readingTimeText = "Estimated reading time:"
+
+[Permalinks]
+    post = "/:year/:month/:day/:filename/"
+
+[[menu.main]]
+    name = "About"
+    url = "/page/about/"
+    weight = 1
+
+[[menu.main]]
+    name = "Blog"
+    url = "/"
+    weight = 2
+
