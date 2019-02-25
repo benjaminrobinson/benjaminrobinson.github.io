@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on Benjamin Robinson - Personal Website &amp; Blog</title>
-    <link>/page/</link>
+    <link>https://benjaminrobinson.github.io/page/</link>
     <description>Recent content in Pages on Benjamin Robinson - Personal Website &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Benjamin Robinson</copyright>
     <lastBuildDate>Sun, 24 Feb 2019 00:00:00 -0500</lastBuildDate>
     
-	<atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://benjaminrobinson.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>/page/about/</link>
+      <link>https://benjaminrobinson.github.io/page/about/</link>
       <pubDate>Sun, 24 Feb 2019 00:00:00 -0500</pubDate>
       
-      <guid>/page/about/</guid>
+      <guid>https://benjaminrobinson.github.io/page/about/</guid>
       <description>I contain multitudes&amp;hellip;(MORE CONTENT TBD) </description>
     </item>
     
