@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Draft on Benjamin Robinson - Personal Website &amp; Blog</title>
-    <link>/tags/draft/</link>
+    <link>https://benjaminrobinson.github.io/tags/draft/</link>
     <description>Recent content in Draft on Benjamin Robinson - Personal Website &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Benjamin Robinson</copyright>
     <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/draft/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://benjaminrobinson.github.io/tags/draft/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Grinding the Mocks:  A Theory of Mock Drafts</title>
-      <link>/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</link>
+      <title>Grinding the Mocks: A Theory of Mock Drafts</title>
+      <link>https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</link>
       <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</guid>
-      <description>The Nostalgia Factor As a person who likes to think deeply about things and was simultaneously consuming my third straight day of television coverage of the National Football League draft, I had the following thou&amp;rdquo;ght: why do I care so much about the NFL Draft?&amp;ldquo;&amp;rdquo; After searching long and hard for an answer, I came to think that one reason I&amp;rsquo;m so interested in the draft is because at its heart, the draft can be a source for optimism in a world where the team you root for might not always win on the field (heck they may rarely win on the field!</description>
+      <guid>https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</guid>
+      <description>The Nostalgia Factor As an analytical-minded person who was simultaneously consuming my third straight day of television coverage of the National Football League draft, the following thought creeeped in my brain: &amp;ldquo;why do I care so much about the NFL Draft?&amp;rdquo; After searching long and hard for an answer, I have came to believe that one reason I&amp;rsquo;m so interested in the draft is because at its heart, the draft is a source of optimism in a world where the team you root for might not always win on the field.</description>
     </item>
     
   </channel>
