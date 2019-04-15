@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Benjamin Robinson</copyright>
-    <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Grinding the Mocks:  The Signal and the Noise</title>
+      <link>/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/</link>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/</guid>
+      <description>The Approachalt text
+At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last blog post, I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player’s stock throughout the NFL Draft process.</description>
+    </item>
     
     <item>
       <title>Grinding the Mocks: A Theory of Mock Drafts</title>

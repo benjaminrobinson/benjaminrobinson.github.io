@@ -1,0 +1,468 @@
+---
+title: 'Grinding the Mocks:  The Signal and the Noise'
+author: "Benjamin Robinson"
+date: '2019-04-15'
+description: ''
+slug: grinding-the-mocks-the-signal-and-the-noise
+tags:
+- nfl
+- nfl draft
+- rstats
+- data science
+- draft
+categories: []
+---
+### The Approach
+
+![alt text](https://cdn.shopify.com/s/files/1/0052/7610/6855/products/mockup-eed382bf_720x.jpg?v=1554343113 "What my friends think I am versus my imposter syndrome, Photo from PFF")
+
+At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last [blog post](https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/), I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player's stock throughout the NFL Draft process.  This post aims to get a bit deeper into the data and statistical aspects of using mock draft data to predict the actual outcomes of the NFL Draft.
+
+I decided to start down the road for this project by exploring mock draft data for the 2018 NFL Draft, which means that 2018 is the only draft I have data for, which is a small sample but its all I've got and as good a place to start as any. For my 2018, I collected the data by hand (more on that choice another time) with a focus on getting a diverse sample of mock drafts from media members, fans, and draft experts. Ultimately, I collected *395 mock drafts*:  *229* from fans, *90* from the media, and *76* from experts. This might sound like a lot but for the 2019 draft, I've collected more than double this number of mock drafts. This will ideally make any estimates I make using the mock draft data less-noisy in terms of the spread of mock draft selections for each draft-eligible player.
+
+Because we have to start from somewhere, I thought it was a good idea to explore how well the basic measures of central tendenency in data: the average, the median, and a weighted average based on how far (in numbers of days) a mock draft is from the date of the actual NFL Draft. From there, we can move into model-based estimates using two basic statistical estimation tools:  the linear regression and the Loess regression.
+
+A linear regression take a series of points and tries to fit a line of best fit in the data based off where the points cluster to minimize the difference between your prediction and the actual outcomes you're trying to predict. In this case, we're trying to use mock draft data to predict actual NFL draft selections. A loess regression takes a slightly different approach in that it attempts to fit a line through your data  but attempts *smooth* the data you provide it to account for change over time, which is often why its known as a "moving regression".
+
+Let's begin by setting up the data and calculating the basic summary statistics for our draft eligible players in mock drafts.
+
+```{r Load Environment and Compute Metrics, echo=TRUE}
+options(stringsAsFactors = FALSE, scipen = 7)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(teamcolors)
+library(ggrepel)
+library(ggthemes)
+library(broom)
+
+`%notin%` <- function(x, y) !(x %in% y)
+
+read.csv("https://github.com/benjaminrobinson/2018NFLMockDrafts/raw/master/data/2018%20NFL%20Mock%20Draft%20Data%20-%20Projections.csv") %>%
+  filter(
+    name %notin% c(
+      "Christian Wilkins",
+      "Clelin Ferrell",
+      "Mitch Hyatt",
+      "Austin Bryant",
+      "Trey Adams",
+      "Dre'Mont Jones",
+      "Adonis Alexander",
+      "Bryce Love",
+      "Iman Marshall",
+      "Cam Smith",
+      "Martez Ivey",
+      "Clayton Thorson",
+      "Jarrett Stidham",
+      "Ken Webster",
+      "Parris Campbell",
+      "Damien Harris",
+      "Dante Booker",
+      "Beau Benzschawel",
+      "Jake Browning",
+      "Porter Gustin",
+      "Brian Hill",
+      "Daylon Mack",
+      "Grant Newsome",
+      "LJ Scott",
+      "Michael Dieter",
+      "Nick Fitzgerald",
+      "TJ Edwards",
+      "Will Grier",
+      "Kendall Joseph",
+      "Jerry Tillery",
+      "Brock Ruble",
+      "Andre Dillard",
+      "Byron Cowart",
+      "CJ Conrad",
+      "George Panos",
+      "Caleb Wilson",
+      "Dontavius Russell",
+      "Sam Beal",
+      "Chase Hansen",
+      "Adam Breneman",
+      "Jaylon Ferguson",
+      "Casey Tucker",
+      ""
+    ) & !(name == 'Josh Allen' & position == 'LB')
+  ) %>%
+  mutate(
+    date = as.Date(date, format = "%m/%d/%Y"),
+    draft_weight = 1 / ((max(date) + 1) - date) %>% as.numeric,
+    draft_year = 2018
+  ) -> prj
+
+read.csv("https://github.com/benjaminrobinson/2018NFLMockDrafts/raw/master/data/2018%20NFL%20Mock%20Draft%20Data%20-%20Actuals.csv") %>%
+  mutate(date = as.Date(date, format = "%m/%d/%Y"),
+         draft_year = 2018) -> act
+
+prj %>%
+  left_join(
+    act %>%
+      rename(actual = pick) %>%
+      distinct(round, actual, name, position, school, team)
+  ) %>%
+  mutate(team = ifelse(is.na(actual), "Undrafted", team),
+         round = ifelse(is.na(actual), 8, round),
+         actual = ifelse(is.na(actual), 257, actual)) -> pick
+
+prj %>%
+  mutate(n_drafts = n_distinct(paste0(site, date))) %>%
+  group_by(name, position, school, draft_year, n_drafts) %>%
+  summarize(
+    draft_count = n(),
+    average_draft_position = mean(pick, na.rm = TRUE),
+    median_draft_position = median(pick, na.rm = TRUE),
+    weighted_average_draft_position = weighted.mean(pick, draft_weight, na.rm = TRUE),
+    sd = sd(pick, na.rm = TRUE),
+    sd = ifelse(is.na(sd), NA, sd)
+  ) %>%
+  ungroup %>%
+  mutate(
+    draft_share = draft_count / n_drafts,
+    draft_share = ifelse(draft_share > 1, 1, draft_share)
+  ) %>%
+  select(-n_drafts) %>%
+  left_join(act %>% distinct(round, pick, name, position, school, team)) %>%
+  mutate(pick = ifelse(is.na(pick), max(act$pick) + 1, pick),
+         round = ifelse(is.na(round), max(act$round) + 1, round)) %>%
+  gather(metric,
+         value,
+         -name,
+         -position,
+         -school,
+         -draft_year,
+         -pick,
+         -round,
+         -team,
+         -draft_share,
+         -draft_count,
+         -sd) %>%
+  mutate(
+    metric = gsub("_", " ", metric),
+    metric = gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", metric, perl = TRUE),
+    lwr = ifelse(is.na(sd), value, value - 1.96*sd),
+    lwr = ifelse(lwr <= 1, 1, lwr),
+    upr = ifelse(is.na(sd), value, value + 1.96*sd),
+    upr = ifelse(upr >= 256, 256, upr)
+  ) %>%
+  left_join(
+    teamcolors %>%
+      filter(league == 'nfl') %>%
+      rename(team = name)
+  ) %>%
+  group_by(metric) %>%
+  mutate(rank = dense_rank(value)) %>%
+  as.data.frame -> agg
+```
+## The Metrics
+
+Now that we've done that, let's use a univariate linear regression to compare the three basic measures of mock draft position against the actual mock draft position to see which one is most accurate:
+
+```{r Compare Metrics, echo=TRUE}
+agg %>%
+  filter(!is.na(sd)) %>%
+  group_by(metric) %>%
+  do(mock = lm(pick ~ value, data = .)) %>%
+  glance(mock) %>%
+  as.data.frame
+```
+
+So it turns out that in a simple linear regression the basic metrics explain about **TWO-THIRDS** of the variation in actual mock draft selections.  That's pretty great on its face for a single metric!
+
+However, this takes into account the whole universe of mock draft and most folks only care about the first round of the NFL Draft and that's probably the only part of the draft worth using the mock draft data to predict the outcome of the draft en-masse. Let's focus on the first round of the draft:
+
+```{r First Round Value Graph, echo=TRUE, fig.height=10}
+agg %>%
+  filter(!is.na(sd)) %>%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %>% unique %>% sort),
+  fill = factor(team, levels = team %>% unique %>% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = 'lm', formula = 'y ~ x') +
+  scale_color_manual(
+  values = agg %>% filter(!is.na(team)) %>% distinct(team, primary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_fill_manual(
+  values = agg %>% filter(!is.na(team)) %>% distinct(team, secondary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = "none") +
+  labs(x = "Mock Draft Position",
+  y = "Actual Draft Position",
+  title = "2018 NFL Draft 1st Round Projections",
+  subtitle = "Compared to Actual Draft Position",
+  caption = "Data and Graph by @benj_robinson"
+  )
+```
+
+```{r First Round Rank Graph, echo=TRUE, fig.height=10}
+agg %>%
+  filter(!is.na(sd) & rank <= 32) %>%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %>% unique %>% sort),
+  fill = factor(team, levels = team %>% unique %>% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = 'lm', formula = 'y ~ x') +
+  scale_color_manual(
+  values = agg %>% filter(!is.na(team)) %>% distinct(team, primary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_fill_manual(
+  values = agg %>% filter(!is.na(team)) %>% distinct(team, secondary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = "none") +
+  labs(x = "Mock Draft Position",
+  y = "Actual Draft Position",
+  title = "2018 NFL Draft 1st Round Projections",
+  subtitle = "Compared to Actual Draft Position",
+  caption = "Data and Graph by @benj_robinson"
+  )
+```
+
+As we can see, even with the first round, there is quite a bit of noise in the data.  Due to a number of  outliers, mostly in the direction of players getting projected to go in the first but going later (as well as players who were projected to go in later rounds but went in the first), the metric does not predict the first round as well overall.
+
+It seems that if we are to use a metric Weighted Average Draft Position metric then we can remove some of those NFL Draft false positives:  players that we thought might go in the 1st round based on data points from earlier in the draft process and that really didn't have much business going in the 1st round as the process played out.  Let's look at a common performance metric before we move on to modeled estimates of Mock Draft Position:
+
+```{r Metric MSE Table, echo=FALSE}
+agg %>%
+  filter(pick <= 32) %>%
+  group_by(`Player Subset` = "First Round Actual Draft Picks", Metric = metric) %>%
+  summarize(
+  `Mock Draft Position Mean Squared Error` = mean((abs(value - pick)) ^ 2),
+  `Mock Draft Ranking Mean Squared Error` = mean((abs(rank - pick)) ^
+  2),
+  `Mock Draft Metric Correlation` = cor(value, pick),
+  `Mock Draft Ranking Correlation` = cor(rank, pick)
+  ) %>%
+  as.data.frame
+
+agg %>%
+  filter(rank <= 32) %>%
+  group_by(`Player Subset` = "First Round Mock Draft Rank", Metric = metric) %>%
+  summarize(
+  `Mock Draft Position Mean Squared Error` = mean((abs(value - pick)) ^ 2),
+  `Mock Draft Ranking Mean Squared Error` = mean((abs(rank - pick)) ^
+  2),
+  `Mock Draft Metric Correlation` = cor(value, pick),
+  `Mock Draft Ranking Correlation` = cor(rank, pick)
+  ) %>%
+  as.data.frame
+
+agg %>%
+  filter(value <= 32) %>%
+  group_by(`Player Subset` = "First Round Mock Draft Position", Metric = metric) %>%
+  summarize(
+  `Mock Draft Position Mean Squared Error` = mean((abs(value - pick)) ^ 2),
+  `Mock Draft Ranking Mean Squared Error` = mean((abs(rank - pick)) ^
+  2),
+  `Mock Draft Metric Correlation` = cor(value, pick),
+  `Mock Draft Ranking Correlation` = cor(rank, pick)
+  ) %>%
+  as.data.frame
+```
+
+What we see confirms the need to have multiple metrics for comparison purposes. While Weighted Average Draft Position minimizes the Mean Squared Error for a player's estimated draft position and draft rank, with the benefit of hindsight, the Median Draft Position metric predicts the players who actually went in the 1st round best, mostly because as part of its definition, the median does not react as strongly to outliers. However, based on my assumptions and the quantity and quality of my 2019 NFL Mock Draft data, I will use the Weighted Average Draft Position going forward as my central tendency metric of choice for predicting actual draft position.
+
+## The Models
+From the world of aggregated metrics, let's move to the more abstract world of models. I'll test two models based on the raw mock draft data (not aggregates):  good old linear regression and the Loess regression. First of all, let's put together the dataset:
+
+```{r Compile Modeled Dataset, echo=TRUE}
+suppressWarnings(
+bind_rows(
+prj %>%
+  group_by(name, position, school, draft_year, metric = "Linear Regression") %>%
+  do(mock = lm(pick ~ date, data = .)) %>%
+  mutate(value = predict(mock, data.frame(date = as.Date("2018-04-26")), interval = 'confidence', level = .95)[1],
+         lwr = predict(mock, data.frame(date = as.Date("2018-04-26")), interval = 'confidence', level = .95)[2],
+         upr = predict(mock, data.frame(date = as.Date("2018-04-26")), interval = 'confidence', level = .95)[3],
+         lwr = ifelse(lwr <= 1, 1, lwr),
+         upr = ifelse(upr >= 256, 256, upr)) %>%
+  select(-mock) %>%
+  filter(!is.na(lwr)),
+prj %>%
+    left_join(
+      agg %>%
+        distinct(name, position, school, draft_count)
+    ) %>%
+  filter(draft_count > 2) %>%
+  group_by(name, position, school, draft_year, metric = "Loess Regression") %>%
+  do(mock = loess(pick ~ date %>% as.numeric, data = .)) %>%
+  mutate(value = predict(mock, data.frame(date = as.Date("2018-04-26")), se = TRUE)[1] %>% unlist,
+         se = predict(mock, data.frame(date = as.Date("2018-04-26")), se = TRUE)[2] %>% unlist,
+         lwr = value - 1.96*se,
+         lwr = ifelse(lwr <= 1, 1, lwr),
+         upr = value + 1.96*se,
+         upr = ifelse(upr >= 256, 256, upr)
+  ) %>%
+  select(-mock, -se) %>%
+  filter(!is.na(value) & !is.na(lwr))
+) %>%
+  left_join(
+    act
+  ) %>%
+left_join(teamcolors %>%
+            filter(league == 'nfl') %>%
+            rename(team = name)
+) %>%
+  group_by(metric) %>%
+  mutate(rank = dense_rank(value),
+         residual_pick = abs(value - pick),
+         residual_rank = abs(rank - pick)) %>%
+  as.data.frame
+) -> models
+```
+
+Let's run the same diagnostics we did for the aggregate metrics:
+
+```{r Model Broom Glance, echo=TRUE}
+models %>%
+  group_by(metric) %>%
+  do(mock = lm(pick ~ value, data = .)) %>%
+  glance(mock) %>%
+  as.data.frame
+```
+
+Looks like overall, the linear and Loess regression modesl perform similarly well with an R squared value that explains about 60% of the variation in the actual 2018 NFRL Draft selections.
+
+```{r First Round Modeled Value Graph, echo=TRUE, fig.height=10}
+models %>%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %>% unique %>% sort),
+  fill = factor(team, levels = team %>% unique %>% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = 'lm', formula = 'y ~ x') +
+  scale_color_manual(
+  values = models %>% filter(!is.na(team)) %>% distinct(team, primary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_fill_manual(
+  values = models %>% filter(!is.na(team)) %>% distinct(team, secondary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = "none") +
+  labs(x = "Mock Draft Position",
+  y = "Actual Draft Position",
+  title = "2018 NFL Draft 1st Round Projections",
+  subtitle = "Compared to Actual Draft Position",
+  caption = "Data and Graph by @benj_robinson"
+  )
+```
+
+That conclusion from the regression summaries is borne out in the graph above but what about when we focus in on the first round:  where the majority of the mock draft data comes from.  Suddenly, the Loess regression looks a lot stronger.
+
+```{r First Round Modeled Rank Graph, echo=TRUE, fig.height=10}
+models %>%
+  filter(rank <= 32) %>%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %>% unique %>% sort),
+  fill = factor(team, levels = team %>% unique %>% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = 'lm', formula = 'y ~ x') +
+  scale_color_manual(
+  values = models %>% filter(!is.na(team)) %>% distinct(team, primary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_fill_manual(
+  values = models %>% filter(!is.na(team)) %>% distinct(team, secondary) %>% arrange(team) %>% select(-team) %>% unlist %>% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = "none") +
+  labs(x = "Mock Draft Position",
+  y = "Actual Draft Position",
+  title = "2018 NFL Draft 1st Round Projections",
+  subtitle = "Compared to Actual Draft Position",
+  caption = "Data and Graph by @benj_robinson"
+  )
+```
+
+```{r Modeled MSE Table, echo=FALSE}
+models %>%
+  filter(pick <= 32) %>%
+  group_by(`Player Subset` = "First Round Actual Draft Picks", Metric = metric) %>%
+  summarize(
+  `Mock Draft Position Mean Squared Error` = mean((abs(value - pick)) ^ 2),
+  `Mock Draft Ranking Mean Squared Error` = mean((abs(rank - pick)) ^
+  2),
+  `Mock Draft Metric Correlation` = cor(value, pick),
+  `Mock Draft Ranking Correlation` = cor(rank, pick)
+  ) %>%
+  as.data.frame
+
+models %>%
+  filter(rank <= 32) %>%
+  group_by(`Player Subset` = "First Round Mock Draft Rank", Metric = metric) %>%
+  summarize(
+  `Mock Draft Position Mean Squared Error` = mean((abs(value - pick)) ^ 2),
+  `Mock Draft Ranking Mean Squared Error` = mean((abs(rank - pick)) ^
+  2),
+  `Mock Draft Metric Correlation` = cor(value, pick),
+  `Mock Draft Ranking Correlation` = cor(rank, pick)
+  ) %>%
+  as.data.frame
+
+models %>%
+  filter(value <= 32) %>%
+  group_by(`Player Subset` = "First Round Mock Draft Position", Metric = metric) %>%
+  summarize(
+  `Mock Draft Position Mean Squared Error` = mean((abs(value - pick)) ^ 2),
+  `Mock Draft Ranking Mean Squared Error` = mean((abs(rank - pick)) ^
+  2),
+  `Mock Draft Metric Correlation` = cor(value, pick),
+  `Mock Draft Ranking Correlation` = cor(rank, pick)
+  ) %>%
+  as.data.frame
+```
+
+
+While it seems that the Linear Regression is best for the ex post facto analysis of looking back at 2018 NFL Draft 1st round actuals, the Loess Regression has the lower of the two modeled estimates in terms of minimizing the Mean Squared Error of the predicted draft positions relative to actuals.
+
+## The Conclusion
+I don't want to belabor the point too much, since that was a lot of math (but this is how we do exploratory analysis!), but the math based on the mock draft data does tell us quite a bit (in the 60% range) about what the actual draft looks like. However, that still means that there is 40% of the variation in the actual draft picks that is not explained by the mock drafts.  To me, this means that we should not use data alone to predict the actual draft but that, combined with human intelligence, this data can do quite a bit to inform us about when a player might go in the draft.
+
+Trades can and will occur a lot more than mock drafts likely predict (an analysis for another day) but I still think that in an uncertain world, the NFL Draft is not as unpredictable as we would like to think. In fact, I'm especially bullish about my projections for the 2019 NFL Draft given my twice as larger mock draft dataset to work from and the knowledge I've gathered from working on this post about which metrics to pay closest attention to.
+
+Look for my own (very meta) data-informed 2019 NFL Mock Draft on April 25th, the day of the draft, as well as a healthy amount of Twitter content the first two days of the draft. I'm as excited as you all to see what happens!

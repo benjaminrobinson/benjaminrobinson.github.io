@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Grinding the Mocks:  The Signal and the Noise &middot; Benjamin Robinson</title>
+        <meta name="description" content="The Approachalt text
+At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last blog post, I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player’s stock throughout the NFL Draft process.">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.54.0" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="Grinding the Mocks:  The Signal and the Noise">
+<meta property="og:description" content="The Approachalt text
+At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last blog post, I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player’s stock throughout the NFL Draft process.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/">
+        <link rel="stylesheet" href="/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+    </head>
+    <body>
+        
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'XXX', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Benjamin Robinson - Personal Website &amp; Blog" href="/">Benjamin Robinson - Personal Website &amp; Blog</a>
+                            </h1>
+                        
+                        <a class="button-square" href="/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/benj_robinson">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/benjaminrobinson">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/benjrobinson2/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:benj.robinson2@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Grinding the Mocks:  The Signal and the Noise</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2019-04-15" itemprop="datePublished">Mon, Apr 15, 2019</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://benjaminrobinson.github.io" itemprop="url" rel="author">Benjamin Robinson</a>
+            </span>
+        </span>
+    </p>
+    
+        <p class="post-reading post-line">
+            <span>Estimated reading time: 16 min</span>
+        </p>
+    
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+
+<div id="the-approach" class="section level3">
+<h3>The Approach</h3>
+<div class="figure">
+<img src="https://cdn.shopify.com/s/files/1/0052/7610/6855/products/mockup-eed382bf_720x.jpg?v=1554343113" title="What my friends think I am versus my imposter syndrome, Photo from PFF" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+<p>At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last <a href="https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/">blog post</a>, I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player’s stock throughout the NFL Draft process. This post aims to get a bit deeper into the data and statistical aspects of using mock draft data to predict the actual outcomes of the NFL Draft.</p>
+<p>I decided to start down the road for this project by exploring mock draft data for the 2018 NFL Draft, which means that 2018 is the only draft I have data for, which is a small sample but its all I’ve got and as good a place to start as any. For my 2018, I collected the data by hand (more on that choice another time) with a focus on getting a diverse sample of mock drafts from media members, fans, and draft experts. Ultimately, I collected <em>395 mock drafts</em>: <em>229</em> from fans, <em>90</em> from the media, and <em>76</em> from experts. This might sound like a lot but for the 2019 draft, I’ve collected more than double this number of mock drafts. This will ideally make any estimates I make using the mock draft data less-noisy in terms of the spread of mock draft selections for each draft-eligible player.</p>
+<p>Because we have to start from somewhere, I thought it was a good idea to explore how well the basic measures of central tendenency in data: the average, the median, and a weighted average based on how far (in numbers of days) a mock draft is from the date of the actual NFL Draft. From there, we can move into model-based estimates using two basic statistical estimation tools: the linear regression and the Loess regression.</p>
+<p>A linear regression take a series of points and tries to fit a line of best fit in the data based off where the points cluster to minimize the difference between your prediction and the actual outcomes you’re trying to predict. In this case, we’re trying to use mock draft data to predict actual NFL draft selections. A loess regression takes a slightly different approach in that it attempts to fit a line through your data but attempts <em>smooth</em> the data you provide it to account for change over time, which is often why its known as a “moving regression”.</p>
+<p>Let’s begin by setting up the data and calculating the basic summary statistics for our draft eligible players in mock drafts.</p>
+<pre class="r"><code>options(stringsAsFactors = FALSE, scipen = 7)
+library(tidyr)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(plotly)</code></pre>
+<pre><code>## Warning: package &#39;plotly&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plotly&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout</code></pre>
+<pre class="r"><code>library(teamcolors)</code></pre>
+<pre><code>## Warning: package &#39;teamcolors&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(ggrepel)</code></pre>
+<pre><code>## Warning: package &#39;ggrepel&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(ggthemes)</code></pre>
+<pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(broom)
+
+`%notin%` &lt;- function(x, y) !(x %in% y)
+
+read.csv(&quot;https://github.com/benjaminrobinson/2018NFLMockDrafts/raw/master/data/2018%20NFL%20Mock%20Draft%20Data%20-%20Projections.csv&quot;) %&gt;%
+  filter(
+    name %notin% c(
+      &quot;Christian Wilkins&quot;,
+      &quot;Clelin Ferrell&quot;,
+      &quot;Mitch Hyatt&quot;,
+      &quot;Austin Bryant&quot;,
+      &quot;Trey Adams&quot;,
+      &quot;Dre&#39;Mont Jones&quot;,
+      &quot;Adonis Alexander&quot;,
+      &quot;Bryce Love&quot;,
+      &quot;Iman Marshall&quot;,
+      &quot;Cam Smith&quot;,
+      &quot;Martez Ivey&quot;,
+      &quot;Clayton Thorson&quot;,
+      &quot;Jarrett Stidham&quot;,
+      &quot;Ken Webster&quot;,
+      &quot;Parris Campbell&quot;,
+      &quot;Damien Harris&quot;,
+      &quot;Dante Booker&quot;,
+      &quot;Beau Benzschawel&quot;,
+      &quot;Jake Browning&quot;,
+      &quot;Porter Gustin&quot;,
+      &quot;Brian Hill&quot;,
+      &quot;Daylon Mack&quot;,
+      &quot;Grant Newsome&quot;,
+      &quot;LJ Scott&quot;,
+      &quot;Michael Dieter&quot;,
+      &quot;Nick Fitzgerald&quot;,
+      &quot;TJ Edwards&quot;,
+      &quot;Will Grier&quot;,
+      &quot;Kendall Joseph&quot;,
+      &quot;Jerry Tillery&quot;,
+      &quot;Brock Ruble&quot;,
+      &quot;Andre Dillard&quot;,
+      &quot;Byron Cowart&quot;,
+      &quot;CJ Conrad&quot;,
+      &quot;George Panos&quot;,
+      &quot;Caleb Wilson&quot;,
+      &quot;Dontavius Russell&quot;,
+      &quot;Sam Beal&quot;,
+      &quot;Chase Hansen&quot;,
+      &quot;Adam Breneman&quot;,
+      &quot;Jaylon Ferguson&quot;,
+      &quot;Casey Tucker&quot;,
+      &quot;&quot;
+    ) &amp; !(name == &#39;Josh Allen&#39; &amp; position == &#39;LB&#39;)
+  ) %&gt;%
+  mutate(
+    date = as.Date(date, format = &quot;%m/%d/%Y&quot;),
+    draft_weight = 1 / ((max(date) + 1) - date) %&gt;% as.numeric,
+    draft_year = 2018
+  ) -&gt; prj
+
+read.csv(&quot;https://github.com/benjaminrobinson/2018NFLMockDrafts/raw/master/data/2018%20NFL%20Mock%20Draft%20Data%20-%20Actuals.csv&quot;) %&gt;%
+  mutate(date = as.Date(date, format = &quot;%m/%d/%Y&quot;),
+         draft_year = 2018) -&gt; act
+
+prj %&gt;%
+  left_join(
+    act %&gt;%
+      rename(actual = pick) %&gt;%
+      distinct(round, actual, name, position, school, team)
+  ) %&gt;%
+  mutate(team = ifelse(is.na(actual), &quot;Undrafted&quot;, team),
+         round = ifelse(is.na(actual), 8, round),
+         actual = ifelse(is.na(actual), 257, actual)) -&gt; pick</code></pre>
+<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;)</code></pre>
+<pre class="r"><code>prj %&gt;%
+  mutate(n_drafts = n_distinct(paste0(site, date))) %&gt;%
+  group_by(name, position, school, draft_year, n_drafts) %&gt;%
+  summarize(
+    draft_count = n(),
+    average_draft_position = mean(pick, na.rm = TRUE),
+    median_draft_position = median(pick, na.rm = TRUE),
+    weighted_average_draft_position = weighted.mean(pick, draft_weight, na.rm = TRUE),
+    sd = sd(pick, na.rm = TRUE),
+    sd = ifelse(is.na(sd), NA, sd)
+  ) %&gt;%
+  ungroup %&gt;%
+  mutate(
+    draft_share = draft_count / n_drafts,
+    draft_share = ifelse(draft_share &gt; 1, 1, draft_share)
+  ) %&gt;%
+  select(-n_drafts) %&gt;%
+  left_join(act %&gt;% distinct(round, pick, name, position, school, team)) %&gt;%
+  mutate(pick = ifelse(is.na(pick), max(act$pick) + 1, pick),
+         round = ifelse(is.na(round), max(act$round) + 1, round)) %&gt;%
+  gather(metric,
+         value,
+         -name,
+         -position,
+         -school,
+         -draft_year,
+         -pick,
+         -round,
+         -team,
+         -draft_share,
+         -draft_count,
+         -sd) %&gt;%
+  mutate(
+    metric = gsub(&quot;_&quot;, &quot; &quot;, metric),
+    metric = gsub(&quot;(^|[[:space:]])([[:alpha:]])&quot;, &quot;\\1\\U\\2&quot;, metric, perl = TRUE),
+    lwr = ifelse(is.na(sd), value, value - 1.96*sd),
+    lwr = ifelse(lwr &lt;= 1, 1, lwr),
+    upr = ifelse(is.na(sd), value, value + 1.96*sd),
+    upr = ifelse(upr &gt;= 256, 256, upr)
+  ) %&gt;%
+  left_join(
+    teamcolors %&gt;%
+      filter(league == &#39;nfl&#39;) %&gt;%
+      rename(team = name)
+  ) %&gt;%
+  group_by(metric) %&gt;%
+  mutate(rank = dense_rank(value)) %&gt;%
+  as.data.frame -&gt; agg</code></pre>
+<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;)</code></pre>
+<pre><code>## Joining, by = &quot;team&quot;</code></pre>
+</div>
+<div id="the-metrics" class="section level2">
+<h2>The Metrics</h2>
+<p>Now that we’ve done that, let’s use a univariate linear regression to compare the three basic measures of mock draft position against the actual mock draft position to see which one is most accurate:</p>
+<pre class="r"><code>agg %&gt;%
+  filter(!is.na(sd)) %&gt;%
+  group_by(metric) %&gt;%
+  do(mock = lm(pick ~ value, data = .)) %&gt;%
+  glance(mock) %&gt;%
+  as.data.frame</code></pre>
+<pre><code>##                            metric r.squared adj.r.squared    sigma
+## 1          Average Draft Position 0.5423606     0.5409077 59.61236
+## 2           Median Draft Position 0.5063135     0.5047462 61.91562
+## 3 Weighted Average Draft Position 0.6332899     0.6321257 53.36249
+##   statistic      p.value df    logLik      AIC      BIC  deviance
+## 1  373.3148 2.072960e-55  2 -1744.653 3495.306 3506.583 1119394.7
+## 2  323.0567 3.292161e-50  2 -1756.670 3519.340 3530.617 1207566.5
+## 3  543.9892 1.354256e-70  2 -1709.544 3425.087 3436.364  896979.8
+##   df.residual
+## 1         315
+## 2         315
+## 3         315</code></pre>
+<p>So it turns out that in a simple linear regression the basic metrics explain about <strong>TWO-THIRDS</strong> of the variation in actual mock draft selections. That’s pretty great on its face for a single metric!</p>
+<p>However, this takes into account the whole universe of mock draft and most folks only care about the first round of the NFL Draft and that’s probably the only part of the draft worth using the mock draft data to predict the outcome of the draft en-masse. Let’s focus on the first round of the draft:</p>
+<pre class="r"><code>agg %&gt;%
+  filter(!is.na(sd)) %&gt;%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %&gt;% unique %&gt;% sort),
+  fill = factor(team, levels = team %&gt;% unique %&gt;% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = &#39;lm&#39;, formula = &#39;y ~ x&#39;) +
+  scale_color_manual(
+  values = agg %&gt;% filter(!is.na(team)) %&gt;% distinct(team, primary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_fill_manual(
+  values = agg %&gt;% filter(!is.na(team)) %&gt;% distinct(team, secondary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = &quot;Mock Draft Position&quot;,
+  y = &quot;Actual Draft Position&quot;,
+  title = &quot;2018 NFL Draft 1st Round Projections&quot;,
+  subtitle = &quot;Compared to Actual Draft Position&quot;,
+  caption = &quot;Data and Graph by @benj_robinson&quot;
+  )</code></pre>
+<pre><code>## Warning: Removed 828 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 828 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 828 rows containing missing values (geom_text_repel).</code></pre>
+<p><img src="/post/2019-04-15-grinding-the-mocks-the-signal-and-the-noise_files/figure-html/First%20Round%20Value%20Graph-1.png" width="672" /></p>
+<pre class="r"><code>agg %&gt;%
+  filter(!is.na(sd) &amp; rank &lt;= 32) %&gt;%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %&gt;% unique %&gt;% sort),
+  fill = factor(team, levels = team %&gt;% unique %&gt;% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = &#39;lm&#39;, formula = &#39;y ~ x&#39;) +
+  scale_color_manual(
+  values = agg %&gt;% filter(!is.na(team)) %&gt;% distinct(team, primary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_fill_manual(
+  values = agg %&gt;% filter(!is.na(team)) %&gt;% distinct(team, secondary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = &quot;Mock Draft Position&quot;,
+  y = &quot;Actual Draft Position&quot;,
+  title = &quot;2018 NFL Draft 1st Round Projections&quot;,
+  subtitle = &quot;Compared to Actual Draft Position&quot;,
+  caption = &quot;Data and Graph by @benj_robinson&quot;
+  )</code></pre>
+<pre><code>## Warning: Removed 8 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 8 rows containing missing values (geom_text_repel).</code></pre>
+<p><img src="/post/2019-04-15-grinding-the-mocks-the-signal-and-the-noise_files/figure-html/First%20Round%20Rank%20Graph-1.png" width="672" /></p>
+<p>As we can see, even with the first round, there is quite a bit of noise in the data. Due to a number of outliers, mostly in the direction of players getting projected to go in the first but going later (as well as players who were projected to go in later rounds but went in the first), the metric does not predict the first round as well overall.</p>
+<p>It seems that if we are to use a metric Weighted Average Draft Position metric then we can remove some of those NFL Draft false positives: players that we thought might go in the 1st round based on data points from earlier in the draft process and that really didn’t have much business going in the 1st round as the process played out. Let’s look at a common performance metric before we move on to modeled estimates of Mock Draft Position:</p>
+<pre><code>##                    Player Subset                          Metric
+## 1 First Round Actual Draft Picks          Average Draft Position
+## 2 First Round Actual Draft Picks           Median Draft Position
+## 3 First Round Actual Draft Picks Weighted Average Draft Position
+##   Mock Draft Position Mean Squared Error
+## 1                               191.8729
+## 2                               168.0625
+## 3                               283.6368
+##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
+## 1                             364.59375                     0.6918107
+## 2                              98.84375                     0.6947786
+## 3                             423.12500                     0.6252490
+##   Mock Draft Ranking Correlation
+## 1                      0.6831410
+## 2                      0.6671132
+## 3                      0.6017523</code></pre>
+<pre><code>##                 Player Subset                          Metric
+## 1 First Round Mock Draft Rank          Average Draft Position
+## 2 First Round Mock Draft Rank           Median Draft Position
+## 3 First Round Mock Draft Rank Weighted Average Draft Position
+##   Mock Draft Position Mean Squared Error
+## 1                               754.2557
+## 2                              2809.6447
+## 3                               110.7990
+##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
+## 1                              756.9375                     0.6165475
+## 2                             3183.6491                     0.4558563
+## 3                              103.8125                     0.7820824
+##   Mock Draft Ranking Correlation
+## 1                      0.5905570
+## 2                      0.4680832
+## 3                      0.8011319</code></pre>
+<pre><code>##                     Player Subset                          Metric
+## 1 First Round Mock Draft Position          Average Draft Position
+## 2 First Round Mock Draft Position           Median Draft Position
+## 3 First Round Mock Draft Position Weighted Average Draft Position
+##   Mock Draft Position Mean Squared Error
+## 1                               692.6951
+## 2                              1920.4643
+## 3                               437.5016
+##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
+## 1                              686.3590                     0.5530910
+## 2                             2220.3265                     0.4988623
+## 3                              407.5833                     0.6105045
+##   Mock Draft Ranking Correlation
+## 1                      0.4949965
+## 2                      0.4920950
+## 3                      0.6331873</code></pre>
+<p>What we see confirms the need to have multiple metrics for comparison purposes. While Weighted Average Draft Position minimizes the Mean Squared Error for a player’s estimated draft position and draft rank, with the benefit of hindsight, the Median Draft Position metric predicts the players who actually went in the 1st round best, mostly because as part of its definition, the median does not react as strongly to outliers. However, based on my assumptions and the quantity and quality of my 2019 NFL Mock Draft data, I will use the Weighted Average Draft Position going forward as my central tendency metric of choice for predicting actual draft position.</p>
+</div>
+<div id="the-models" class="section level2">
+<h2>The Models</h2>
+<p>From the world of aggregated metrics, let’s move to the more abstract world of models. I’ll test two models based on the raw mock draft data (not aggregates): good old linear regression and the Loess regression. First of all, let’s put together the dataset:</p>
+<pre class="r"><code>suppressWarnings(
+bind_rows(
+prj %&gt;%
+  group_by(name, position, school, draft_year, metric = &quot;Linear Regression&quot;) %&gt;%
+  do(mock = lm(pick ~ date, data = .)) %&gt;%
+  mutate(value = predict(mock, data.frame(date = as.Date(&quot;2018-04-26&quot;)), interval = &#39;confidence&#39;, level = .95)[1],
+         lwr = predict(mock, data.frame(date = as.Date(&quot;2018-04-26&quot;)), interval = &#39;confidence&#39;, level = .95)[2],
+         upr = predict(mock, data.frame(date = as.Date(&quot;2018-04-26&quot;)), interval = &#39;confidence&#39;, level = .95)[3],
+         lwr = ifelse(lwr &lt;= 1, 1, lwr),
+         upr = ifelse(upr &gt;= 256, 256, upr)) %&gt;%
+  select(-mock) %&gt;%
+  filter(!is.na(lwr)),
+prj %&gt;%
+    left_join(
+      agg %&gt;%
+        distinct(name, position, school, draft_count)
+    ) %&gt;%
+  filter(draft_count &gt; 2) %&gt;%
+  group_by(name, position, school, draft_year, metric = &quot;Loess Regression&quot;) %&gt;%
+  do(mock = loess(pick ~ date %&gt;% as.numeric, data = .)) %&gt;%
+  mutate(value = predict(mock, data.frame(date = as.Date(&quot;2018-04-26&quot;)), se = TRUE)[1] %&gt;% unlist,
+         se = predict(mock, data.frame(date = as.Date(&quot;2018-04-26&quot;)), se = TRUE)[2] %&gt;% unlist,
+         lwr = value - 1.96*se,
+         lwr = ifelse(lwr &lt;= 1, 1, lwr),
+         upr = value + 1.96*se,
+         upr = ifelse(upr &gt;= 256, 256, upr)
+  ) %&gt;%
+  select(-mock, -se) %&gt;%
+  filter(!is.na(value) &amp; !is.na(lwr))
+) %&gt;%
+  left_join(
+    act
+  ) %&gt;%
+left_join(teamcolors %&gt;%
+            filter(league == &#39;nfl&#39;) %&gt;%
+            rename(team = name)
+) %&gt;%
+  group_by(metric) %&gt;%
+  mutate(rank = dense_rank(value),
+         residual_pick = abs(value - pick),
+         residual_rank = abs(rank - pick)) %&gt;%
+  as.data.frame
+) -&gt; models</code></pre>
+<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;)</code></pre>
+<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;, &quot;draft_year&quot;)</code></pre>
+<pre><code>## Joining, by = &quot;team&quot;</code></pre>
+<p>Let’s run the same diagnostics we did for the aggregate metrics:</p>
+<pre class="r"><code>models %&gt;%
+  group_by(metric) %&gt;%
+  do(mock = lm(pick ~ value, data = .)) %&gt;%
+  glance(mock) %&gt;%
+  as.data.frame</code></pre>
+<pre><code>##              metric r.squared adj.r.squared    sigma statistic
+## 1 Linear Regression 0.6005095     0.5985981 44.04117  314.1664
+## 2  Loess Regression 0.6071465     0.6049760 40.99118  279.7315
+##        p.value df     logLik      AIC      BIC deviance df.residual
+## 1 1.614930e-43  2 -1097.0526 2200.105 2210.161 405381.6         209
+## 2 1.436171e-38  2  -938.2045 1882.409 1892.038 304130.0         181</code></pre>
+<p>Looks like overall, the linear and Loess regression modesl perform similarly well with an R squared value that explains about 60% of the variation in the actual 2018 NFRL Draft selections.</p>
+<pre class="r"><code>models %&gt;%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %&gt;% unique %&gt;% sort),
+  fill = factor(team, levels = team %&gt;% unique %&gt;% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = &#39;lm&#39;, formula = &#39;y ~ x&#39;) +
+  scale_color_manual(
+  values = models %&gt;% filter(!is.na(team)) %&gt;% distinct(team, primary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_fill_manual(
+  values = models %&gt;% filter(!is.na(team)) %&gt;% distinct(team, secondary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = &quot;Mock Draft Position&quot;,
+  y = &quot;Actual Draft Position&quot;,
+  title = &quot;2018 NFL Draft 1st Round Projections&quot;,
+  subtitle = &quot;Compared to Actual Draft Position&quot;,
+  caption = &quot;Data and Graph by @benj_robinson&quot;
+  )</code></pre>
+<pre><code>## Warning: Removed 446 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 446 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 446 rows containing missing values (geom_text_repel).</code></pre>
+<p><img src="/post/2019-04-15-grinding-the-mocks-the-signal-and-the-noise_files/figure-html/First%20Round%20Modeled%20Value%20Graph-1.png" width="672" /></p>
+<p>That conclusion from the regression summaries is borne out in the graph above but what about when we focus in on the first round: where the majority of the mock draft data comes from. Suddenly, the Loess regression looks a lot stronger.</p>
+<pre class="r"><code>models %&gt;%
+  filter(rank &lt;= 32) %&gt;%
+  ggplot(aes(
+  value,
+  pick,
+  color = factor(team, levels = team %&gt;% unique %&gt;% sort),
+  fill = factor(team, levels = team %&gt;% unique %&gt;% sort)
+  )) +
+  geom_point(size = 3) +
+  geom_text_repel(aes(label = name)) +
+  geom_abline(slope = 1,
+  intercept = 0,
+  size = .5) +
+  geom_smooth(aes(group = metric), method = &#39;lm&#39;, formula = &#39;y ~ x&#39;) +
+  scale_color_manual(
+  values = models %&gt;% filter(!is.na(team)) %&gt;% distinct(team, primary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_fill_manual(
+  values = models %&gt;% filter(!is.na(team)) %&gt;% distinct(team, secondary) %&gt;% arrange(team) %&gt;% select(-team) %&gt;% unlist %&gt;% unname
+  ) +
+  scale_x_continuous(limits = c(1, 32), breaks = c(1, 16, 32)) +
+  scale_y_continuous(limits = c(-10, 174),
+  breaks = c(1, 32, 64, 96, 137, 174)) +
+  facet_wrap(~metric, ncol = 1) +
+  theme_fivethirtyeight() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = &quot;Mock Draft Position&quot;,
+  y = &quot;Actual Draft Position&quot;,
+  title = &quot;2018 NFL Draft 1st Round Projections&quot;,
+  subtitle = &quot;Compared to Actual Draft Position&quot;,
+  caption = &quot;Data and Graph by @benj_robinson&quot;
+  )</code></pre>
+<p><img src="/post/2019-04-15-grinding-the-mocks-the-signal-and-the-noise_files/figure-html/First%20Round%20Modeled%20Rank%20Graph-1.png" width="672" /></p>
+<pre><code>##                    Player Subset            Metric
+## 1 First Round Actual Draft Picks Linear Regression
+## 2 First Round Actual Draft Picks  Loess Regression
+##   Mock Draft Position Mean Squared Error
+## 1                               238.9097
+## 2                               308.9240
+##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
+## 1                              303.7188                     0.6654195
+## 2                              384.0625                     0.6060257
+##   Mock Draft Ranking Correlation
+## 1                      0.6601037
+## 2                      0.6113017</code></pre>
+<pre><code>##                 Player Subset            Metric
+## 1 First Round Mock Draft Rank Linear Regression
+## 2 First Round Mock Draft Rank  Loess Regression
+##   Mock Draft Position Mean Squared Error
+## 1                               510.6507
+## 2                                97.4431
+##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
+## 1                              477.0312                     0.6424860
+## 2                               97.7500                     0.7558404
+##   Mock Draft Ranking Correlation
+## 1                      0.6878918
+## 2                      0.7460792</code></pre>
+<pre><code>##                     Player Subset            Metric
+## 1 First Round Mock Draft Position Linear Regression
+## 2 First Round Mock Draft Position  Loess Regression
+##   Mock Draft Position Mean Squared Error
+## 1                               485.4605
+## 2                               438.5455
+##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
+## 1                              458.9706                     0.6021054
+## 2                              391.7027                     0.6245101
+##   Mock Draft Ranking Correlation
+## 1                      0.6200909
+## 2                      0.6628927</code></pre>
+<p>While it seems that the Linear Regression is best for the ex post facto analysis of looking back at 2018 NFL Draft 1st round actuals, the Loess Regression has the lower of the two modeled estimates in terms of minimizing the Mean Squared Error of the predicted draft positions relative to actuals.</p>
+</div>
+<div id="the-conclusion" class="section level2">
+<h2>The Conclusion</h2>
+<p>I don’t want to belabor the point too much, since that was a lot of math (but this is how we do exploratory analysis!), but the math based on the mock draft data does tell us quite a bit (in the 60% range) about what the actual draft looks like. However, that still means that there is 40% of the variation in the actual draft picks that is not explained by the mock drafts. To me, this means that we should not use data alone to predict the actual draft but that, combined with human intelligence, this data can do quite a bit to inform us about when a player might go in the draft.</p>
+<p>Trades can and will occur a lot more than mock drafts likely predict (an analysis for another day) but I still think that in an uncertain world, the NFL Draft is not as unpredictable as we would like to think. In fact, I’m especially bullish about my projections for the 2019 NFL Draft given my twice as larger mock draft dataset to work from and the knowledge I’ve gathered from working on this post about which metrics to pay closest attention to.</p>
+<p>Look for my own (very meta) data-informed 2019 NFL Mock Draft on April 25th, the day of the draft, as well as a healthy amount of Twitter content the first two days of the draft. I’m as excited as you all to see what happens!</p>
+</div>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/nfl/">nfl</a>, 
+            
+                <a href="/tags/nfl-draft/">nfl draft</a>, 
+            
+                <a href="/tags/rstats/">rstats</a>, 
+            
+                <a href="/tags/data-science/">data science</a>, 
+            
+                <a href="/tags/draft/">draft</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Grinding%20the%20Mocks%3a%20%20The%20Signal%20and%20the%20Noise&url=%2f2019%2f04%2f15%2f2019-04-15-grinding-the-mocks-the-signal-and-the-noise%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2f2019%2f04%2f15%2f2019-04-15-grinding-the-mocks-the-signal-and-the-noise%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=%2f2019%2f04%2f15%2f2019-04-15-grinding-the-mocks-the-signal-and-the-noise%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Benjamin Robinson - Personal Website &amp; Blog" href="/">Benjamin Robinson - Personal Website &amp; Blog</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2019 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="/js/jquery-1.11.3.min.js"></script>
+        <script src="/js/jquery.fitvids.js"></script>
+        
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>
+

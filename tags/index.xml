@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Benjamin Robinson</copyright>
-    <lastBuildDate>Mon, 25 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>Data Science</title>
       <link>/tags/data-science/</link>
-      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/data-science/</guid>
       <description></description>
@@ -24,7 +24,7 @@
     <item>
       <title>Draft</title>
       <link>/tags/draft/</link>
-      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/draft/</guid>
       <description></description>
@@ -33,7 +33,7 @@
     <item>
       <title>Nfl</title>
       <link>/tags/nfl/</link>
-      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/nfl/</guid>
       <description></description>
@@ -42,7 +42,7 @@
     <item>
       <title>Nfl Draft</title>
       <link>/tags/nfl-draft/</link>
-      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/nfl-draft/</guid>
       <description></description>
@@ -51,7 +51,7 @@
     <item>
       <title>Rstats</title>
       <link>/tags/rstats/</link>
-      <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/rstats/</guid>
       <description></description>
