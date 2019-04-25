@@ -1,0 +1,147 @@
+---
+title: 'Grinding the Mocks:  My 2019 Meta Mock Draft'
+author: Benjamin Robinson
+date: '2019-04-25'
+slug: grinding-the-mocks-my-2019-meta-mock-draft
+categories: []
+tags:
+  - draft
+  - nfl
+  - nfl draft
+  - rstats
+  - data science
+description: ''
+---
+### Draft Day Has Arrived!
+
+![Oh the joys of the movie Draft Day featuring Kevin Costner](https://culturefly.co.uk/wp-content/uploads/2014/10/Draft-Day-UK-One-Sheet-Poster-759x500.jpg)
+
+Tonight is the night!  Yes, ladies and gentleman, the 2019 NFL Draft is upon us. With no further, ado, since you can reference my other blog posts about [my theory of action](https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/) and [my methodology and performance in the 2018 NFL Draft](https://benjaminrobinson.github.io/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/).  Here you go!
+
+```{r Load Environment and Compute Metrics, echo=FALSE, message=FALSE, warning=FALSE}
+options(stringsAsFactors = FALSE, scipen = 7)
+options(stringsAsFactors = FALSE, scipen = 7)
+library(googlesheets)
+library(dplyr)
+library(tidyr)
+library(teamcolors)
+library(knitr)
+
+gs_key(
+  "1f9WYqbCIy-NzbUGzAHSUqja2sJ2rnWuHzNciR_3Vk5E",
+  lookup = FALSE,
+  verbose = FALSE
+) %>% gs_read("Projected") %>%
+  anti_join(
+    gs_key(
+      "1f9WYqbCIy-NzbUGzAHSUqja2sJ2rnWuHzNciR_3Vk5E",
+      lookup = FALSE,
+      verbose = FALSE
+    ) %>% gs_read("Undraftable")
+  ) %>%
+  mutate(date = as.Date(date, format = "%m/%d/%Y")) -> prj
+
+n_distinct(paste(prj$site, prj$date, prj$url)) -> total_drafts
+
+prj %>%
+  group_by(Name = name, Position = position, School = school) %>%
+  filter(n_distinct(paste(site, date, url)) > 3) %>%
+  summarize(`Number of Mock Drafts` = n_distinct(paste(site, date, url)),
+            `Mock Draft Market Share` = (`Number of Mock Drafts`/total_drafts),
+            `Mock Draft Value` = weighted.mean(pick, draft_weight),
+            se = sd(pick, na.rm = TRUE),
+            `Mock Draft Value Lower Bound` = `Mock Draft Value` + 1.96*se,
+            `Mock Draft Value Lower Bound` = ifelse(`Mock Draft Value Lower Bound` > 254, 254, `Mock Draft Value Lower Bound`),
+            `Mock Draft Value Upper Bound` = `Mock Draft Value` - 1.96*se,
+            `Mock Draft Value Upper Bound` = ifelse(`Mock Draft Value Upper Bound` < 1, 1, `Mock Draft Value Upper Bound`)
+            ) %>%
+  select(-se) %>%
+  ungroup %>%
+  mutate(`Mock Draft Value Rank` = dense_rank(`Mock Draft Value`),
+         `Mock Draft Value Lower Bound Rank` = dense_rank(`Mock Draft Value Lower Bound`, `Mock Draft Value Rank`),
+         `Mock Draft Value Upper Bound Rank` = dense_rank(`Mock Draft Value Upper Bound`, `Mock Draft Value Rank`)) %>%
+  arrange(`Mock Draft Value Rank`) %>%
+  select(1:6,9,8,11,7,10) %>%
+  filter(`Mock Draft Value Rank` <= 32) %>%
+  as.data.frame -> draft_wt
+
+prj %>%
+  group_by(Name = name, Position = position, School = school) %>%
+  filter(n_distinct(paste(site, date, url)) > 9) %>%
+  mutate(`Number of Mock Drafts` = n_distinct(paste(site, date, url)),
+         `Mock Draft Market Share` = (`Number of Mock Drafts`/total_drafts)) %>%
+  group_by(Name, Position, School, `Number of Mock Drafts`, `Mock Draft Market Share`) %>%
+  do(mock = loess(pick ~ date %>% as.numeric,
+            data = .)) %>%
+  mutate(`Mock Draft Model` = predict(mock, data.frame(date = as.Date("2019-04-25")), se = TRUE)[1] %>% unlist,
+         se = predict(mock, data.frame(date = as.Date("2019-04-25")), se = TRUE)[2] %>% unlist,
+         `Mock Draft Model Upper Bound` = `Mock Draft Model` - 1.96*se,
+         `Mock Draft Model Upper Bound` = ifelse(`Mock Draft Model Upper Bound` <= 1, 1, `Mock Draft Model Upper Bound`),
+         `Mock Draft Model Lower Bound` = `Mock Draft Model` + 1.96*se,
+         `Mock Draft Model Lower Bound` = ifelse(`Mock Draft Model Lower Bound` >= 256, 256, `Mock Draft Model Lower Bound`)
+  ) %>%
+  select(-mock, -se) %>%
+  filter(`Mock Draft Model` <= 256 & `Mock Draft Model` >= 1 & !is.na(`Mock Draft Model Upper Bound`)) %>%
+  ungroup %>%
+  mutate(`Mock Draft Model Rank` = dense_rank(`Mock Draft Model`),
+         `Mock Draft Model Upper Bound Rank` = dense_rank(`Mock Draft Model Upper Bound`),
+         `Mock Draft Model Lower Bound Rank` = dense_rank(`Mock Draft Model Lower Bound`)
+         ) %>%
+  arrange(`Mock Draft Model`) %>%
+  select(1:6,9,7,10,8,11) %>%
+  filter(`Mock Draft Model Rank` <= 32) %>%
+  as.data.frame -> draft_md
+```
+
+According to my research, there are two metrics to look closely at out of the ones I've studied:  the weighted average where we weight each mock draft by how close it is made to the day of the NFL Draft and the output of prediction made using a Loess regression model, a method that smooths out data instead of trying to fit a line of best fit through our data to better indentify trends.
+
+Let's lay out the weighted average first.  The standard deviations that determine the players that are considered options in the first round of the draft are relatively high so let's look at the the weighted average rankings to tell us who might be available:
+
+```{r Weighted Avg Table, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+kable(draft_wt, format = 'html', align = 'c')
+```
+
+This means that according to the weighted average this the positional breakdown of the first round:
+
+```{r Weighted Avg Positional Breakdown, , echo=FALSE, message=FALSE, warning=FALSE}
+draft_wt %>%
+  count(Position, sort = TRUE) %>%
+  rename(`Number of Picks` = n) %>%
+  kable(format = 'html', align = 'c')
+```
+
+As far as surprises, there aren't too many but that should be the case given the consensus-building nature of this exercise and the number of mock drafts involved (`r total_drafts`)!
+
+Let's now move on to the Loess modeled output:
+
+```{r Loess Table, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+kable(draft_md, format = 'html', align = 'c')
+```
+
+And the positional breakdown:
+
+```{r Loess Positional Breakdown, echo=FALSE, message=FALSE, warning=FALSE}
+draft_md %>%
+  count(Position, sort = TRUE) %>%
+  rename(`Number of Picks` = n) %>%
+  kable(format = 'html', align = 'c')
+```
+
+It looks like the weighted average has the same positional breakdown that the Loess output.  Do we have convergence (potentially at large enough sample sizes and with over 75,000 rows of data that might be the case)?
+
+![Goddamn!](https://image.slidesharecdn.com/babywearingslideshare-150806223825-lva1-app6892/95/so-a-baby-walks-into-a-tech-conference-confronting-maternal-bias-in-the-software-industry-10-638.jpg?cb=1438990664)
+
+It turns out, not exactly but its close.  There are two players who only appear in one of the top 32 lists and both are cornerbacks:  Deandre Baker (from the University of Georgia Bulldogs) and Rock Ya-Sin (from the Temple University Owls and on a side note one of my favorite names of the 2019 NFL Draft season/#szn).  But there are 11 picks who have the same ranking in both datasets.  Here they are:
+
+```{r Same Same Table, echo=FALSE, message=FALSE, warning=FALSE}
+bind_rows(draft_md %>% select(Name, Rank = `Mock Draft Model Rank`), draft_wt %>% select(Name, Rank = `Mock Draft Value Rank`)) %>%
+    count(Name, Rank) %>%
+    filter(n > 1) %>%
+    arrange(Rank) %>%
+    select(-n) %>%
+    kable(format = 'html', align = 'c')
+```
+
+Alright, that's enough for me.  Enjoy the draft and look for me to post plenty of "Player Stock Charts" on my [Twitter Feed](https://twitter.com/benj_robinson).  I'll also be doing some follow up posts as well in the coming days/weeks! Thanks for following along on this little NFL Mock Draft data journey together.  Its sure been fun!

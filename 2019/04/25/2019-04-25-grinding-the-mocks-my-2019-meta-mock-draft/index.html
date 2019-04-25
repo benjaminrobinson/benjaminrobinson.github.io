@@ -1,0 +1,2865 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Grinding the Mocks:  My 2019 Meta Mock Draft &middot; Benjamin Robinson</title>
+        <meta name="description" content="Draft Day Has Arrived!Oh the joys of the movie Draft Day featuring Kevin Costner
+Tonight is the night! Yes, ladies and gentleman, the 2019 NFL Draft is upon us. With no further, ado, since you can reference my other blog posts about my theory of action and my methodology and performance in the 2018 NFL Draft. Here you go!
+According to my research, there are two metrics to look closely at out of the ones I’ve studied: the weighted average where we weight each mock draft by how close it is made to the day of the NFL Draft and the output of prediction made using a Loess regression model, a method that smooths out data instead of trying to fit a line of best fit through our data to better indentify trends.">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.54.0" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="Grinding the Mocks:  My 2019 Meta Mock Draft">
+<meta property="og:description" content="Draft Day Has Arrived!Oh the joys of the movie Draft Day featuring Kevin Costner
+Tonight is the night! Yes, ladies and gentleman, the 2019 NFL Draft is upon us. With no further, ado, since you can reference my other blog posts about my theory of action and my methodology and performance in the 2018 NFL Draft. Here you go!
+According to my research, there are two metrics to look closely at out of the ones I’ve studied: the weighted average where we weight each mock draft by how close it is made to the day of the NFL Draft and the output of prediction made using a Loess regression model, a method that smooths out data instead of trying to fit a line of best fit through our data to better indentify trends.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://benjaminrobinson.github.io/2019/04/25/2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft/">
+        <link rel="stylesheet" href="https://benjaminrobinson.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
+        
+        
+    </head>
+    <body>
+        
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'XXX', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Benjamin Robinson - Personal Website &amp; Blog" href="https://benjaminrobinson.github.io/">Benjamin Robinson - Personal Website &amp; Blog</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://benjaminrobinson.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/benj_robinson">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/benjaminrobinson">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/benjrobinson2/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:benj.robinson2@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Grinding the Mocks:  My 2019 Meta Mock Draft</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2019-04-25" itemprop="datePublished">Thu, Apr 25, 2019</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://benjaminrobinson.github.io" itemprop="url" rel="author">Benjamin Robinson</a>
+            </span>
+        </span>
+    </p>
+    
+        <p class="post-reading post-line">
+            <span>Estimated reading time: 7 min</span>
+        </p>
+    
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+
+<div id="draft-day-has-arrived" class="section level3">
+<h3>Draft Day Has Arrived!</h3>
+<div class="figure">
+<img src="https://culturefly.co.uk/wp-content/uploads/2014/10/Draft-Day-UK-One-Sheet-Poster-759x500.jpg" alt="Oh the joys of the movie Draft Day featuring Kevin Costner" />
+<p class="caption">Oh the joys of the movie Draft Day featuring Kevin Costner</p>
+</div>
+<p>Tonight is the night! Yes, ladies and gentleman, the 2019 NFL Draft is upon us. With no further, ado, since you can reference my other blog posts about <a href="https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/">my theory of action</a> and <a href="https://benjaminrobinson.github.io/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/">my methodology and performance in the 2018 NFL Draft</a>. Here you go!</p>
+<p>According to my research, there are two metrics to look closely at out of the ones I’ve studied: the weighted average where we weight each mock draft by how close it is made to the day of the NFL Draft and the output of prediction made using a Loess regression model, a method that smooths out data instead of trying to fit a line of best fit through our data to better indentify trends.</p>
+<p>Let’s lay out the weighted average first. The standard deviations that determine the players that are considered options in the first round of the draft are relatively high so let’s look at the the weighted average rankings to tell us who might be available:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+Name
+</th>
+<th style="text-align:center;">
+Position
+</th>
+<th style="text-align:center;">
+School
+</th>
+<th style="text-align:center;">
+Number of Mock Drafts
+</th>
+<th style="text-align:center;">
+Mock Draft Market Share
+</th>
+<th style="text-align:center;">
+Mock Draft Value
+</th>
+<th style="text-align:center;">
+Mock Draft Value Rank
+</th>
+<th style="text-align:center;">
+Mock Draft Value Upper Bound
+</th>
+<th style="text-align:center;">
+Mock Draft Value Upper Bound Rank
+</th>
+<th style="text-align:center;">
+Mock Draft Value Lower Bound
+</th>
+<th style="text-align:center;">
+Mock Draft Value Lower Bound Rank
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Kyler Murray
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Oklahoma
+</td>
+<td style="text-align:center;">
+1356
+</td>
+<td style="text-align:center;">
+0.6381176
+</td>
+<td style="text-align:center;">
+2.012971
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+15.239763
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Nick Bosa
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Ohio State
+</td>
+<td style="text-align:center;">
+1796
+</td>
+<td style="text-align:center;">
+0.8451765
+</td>
+<td style="text-align:center;">
+2.019181
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3.471304
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Quinnen Williams
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Alabama
+</td>
+<td style="text-align:center;">
+1683
+</td>
+<td style="text-align:center;">
+0.7920000
+</td>
+<td style="text-align:center;">
+3.637983
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+9.864553
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Josh Allen
+</td>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+Kentucky
+</td>
+<td style="text-align:center;">
+1754
+</td>
+<td style="text-align:center;">
+0.8254118
+</td>
+<td style="text-align:center;">
+4.583400
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+15.691752
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Devin White
+</td>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+LSU
+</td>
+<td style="text-align:center;">
+1748
+</td>
+<td style="text-align:center;">
+0.8225882
+</td>
+<td style="text-align:center;">
+6.800418
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+17.630074
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Ed Oliver
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Houston
+</td>
+<td style="text-align:center;">
+1756
+</td>
+<td style="text-align:center;">
+0.8263529
+</td>
+<td style="text-align:center;">
+7.256663
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+16.336721
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Dwayne Haskins
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Ohio State
+</td>
+<td style="text-align:center;">
+1585
+</td>
+<td style="text-align:center;">
+0.7458824
+</td>
+<td style="text-align:center;">
+9.534544
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+19.119066
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Jawaan Taylor
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Florida
+</td>
+<td style="text-align:center;">
+1381
+</td>
+<td style="text-align:center;">
+0.6498824
+</td>
+<td style="text-align:center;">
+9.857462
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+26.106888
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Jonah Williams
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Alabama
+</td>
+<td style="text-align:center;">
+1733
+</td>
+<td style="text-align:center;">
+0.8155294
+</td>
+<td style="text-align:center;">
+11.452807
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+23.255871
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+T.J. Hockenson
+</td>
+<td style="text-align:center;">
+TE
+</td>
+<td style="text-align:center;">
+Iowa
+</td>
+<td style="text-align:center;">
+1236
+</td>
+<td style="text-align:center;">
+0.5816471
+</td>
+<td style="text-align:center;">
+11.462260
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+32.290471
+</td>
+<td style="text-align:center;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Montez Sweat
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Mississippi State
+</td>
+<td style="text-align:center;">
+1633
+</td>
+<td style="text-align:center;">
+0.7684706
+</td>
+<td style="text-align:center;">
+14.461145
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+29.771621
+</td>
+<td style="text-align:center;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Devin Bush
+</td>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+Michigan
+</td>
+<td style="text-align:center;">
+1328
+</td>
+<td style="text-align:center;">
+0.6249412
+</td>
+<td style="text-align:center;">
+14.535523
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+35.444750
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Rashan Gary
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Michigan
+</td>
+<td style="text-align:center;">
+1680
+</td>
+<td style="text-align:center;">
+0.7905882
+</td>
+<td style="text-align:center;">
+14.569471
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+28.732672
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Drew Lock
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Missouri
+</td>
+<td style="text-align:center;">
+1516
+</td>
+<td style="text-align:center;">
+0.7134118
+</td>
+<td style="text-align:center;">
+14.668798
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+30.205859
+</td>
+<td style="text-align:center;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Brian Burns
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Florida State
+</td>
+<td style="text-align:center;">
+1488
+</td>
+<td style="text-align:center;">
+0.7002353
+</td>
+<td style="text-align:center;">
+15.682847
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+32.290912
+</td>
+<td style="text-align:center;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Andre Dillard
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Washington State
+</td>
+<td style="text-align:center;">
+1129
+</td>
+<td style="text-align:center;">
+0.5312941
+</td>
+<td style="text-align:center;">
+16.405327
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+37.386667
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Christian Wilkins
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Clemson
+</td>
+<td style="text-align:center;">
+1462
+</td>
+<td style="text-align:center;">
+0.6880000
+</td>
+<td style="text-align:center;">
+16.985515
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+2.086552
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+31.884477
+</td>
+<td style="text-align:center;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Daniel Jones
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Duke
+</td>
+<td style="text-align:center;">
+1013
+</td>
+<td style="text-align:center;">
+0.4767059
+</td>
+<td style="text-align:center;">
+17.215565
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+43.149307
+</td>
+<td style="text-align:center;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+D.K. Metcalf
+</td>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+Ole Miss
+</td>
+<td style="text-align:center;">
+1377
+</td>
+<td style="text-align:center;">
+0.6480000
+</td>
+<td style="text-align:center;">
+18.594153
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+4.488803
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+32.699503
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Clelin Ferrell
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Clemson
+</td>
+<td style="text-align:center;">
+1694
+</td>
+<td style="text-align:center;">
+0.7971765
+</td>
+<td style="text-align:center;">
+19.322055
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+4.924784
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+33.719326
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Cody Ford
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Oklahoma
+</td>
+<td style="text-align:center;">
+1348
+</td>
+<td style="text-align:center;">
+0.6343529
+</td>
+<td style="text-align:center;">
+19.687470
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+5.741567
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+33.633372
+</td>
+<td style="text-align:center;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Greedy Williams
+</td>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+LSU
+</td>
+<td style="text-align:center;">
+1684
+</td>
+<td style="text-align:center;">
+0.7924706
+</td>
+<td style="text-align:center;">
+20.686007
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+5.082096
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+36.289918
+</td>
+<td style="text-align:center;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Byron Murphy
+</td>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+Washington
+</td>
+<td style="text-align:center;">
+1447
+</td>
+<td style="text-align:center;">
+0.6809412
+</td>
+<td style="text-align:center;">
+23.101951
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+11.357245
+</td>
+<td style="text-align:center;">
+32
+</td>
+<td style="text-align:center;">
+34.846658
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Garrett Bradbury
+</td>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+NC State
+</td>
+<td style="text-align:center;">
+761
+</td>
+<td style="text-align:center;">
+0.3581176
+</td>
+<td style="text-align:center;">
+23.424754
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+1.000000
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+51.916571
+</td>
+<td style="text-align:center;">
+35
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Noah Fant
+</td>
+<td style="text-align:center;">
+TE
+</td>
+<td style="text-align:center;">
+Iowa
+</td>
+<td style="text-align:center;">
+1407
+</td>
+<td style="text-align:center;">
+0.6621176
+</td>
+<td style="text-align:center;">
+23.546361
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+7.465550
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+39.627173
+</td>
+<td style="text-align:center;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Marquise Brown
+</td>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+Oklahoma
+</td>
+<td style="text-align:center;">
+1120
+</td>
+<td style="text-align:center;">
+0.5270588
+</td>
+<td style="text-align:center;">
+23.888015
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+4.445638
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+43.330391
+</td>
+<td style="text-align:center;">
+25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Jeffery Simmons
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Mississippi State
+</td>
+<td style="text-align:center;">
+1177
+</td>
+<td style="text-align:center;">
+0.5538824
+</td>
+<td style="text-align:center;">
+25.886430
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+5.114464
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+46.658396
+</td>
+<td style="text-align:center;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Josh Jacobs
+</td>
+<td style="text-align:center;">
+RB
+</td>
+<td style="text-align:center;">
+Alabama
+</td>
+<td style="text-align:center;">
+942
+</td>
+<td style="text-align:center;">
+0.4432941
+</td>
+<td style="text-align:center;">
+26.028209
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+8.639900
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+43.416518
+</td>
+<td style="text-align:center;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Dexter Lawrence
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Clemson
+</td>
+<td style="text-align:center;">
+1296
+</td>
+<td style="text-align:center;">
+0.6098824
+</td>
+<td style="text-align:center;">
+26.313423
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+7.204765
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+45.422080
+</td>
+<td style="text-align:center;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Chris Lindstrom
+</td>
+<td style="text-align:center;">
+G
+</td>
+<td style="text-align:center;">
+Boston College
+</td>
+<td style="text-align:center;">
+555
+</td>
+<td style="text-align:center;">
+0.2611765
+</td>
+<td style="text-align:center;">
+26.905472
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+3.905931
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+49.905013
+</td>
+<td style="text-align:center;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Deandre Baker
+</td>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+Georgia
+</td>
+<td style="text-align:center;">
+1427
+</td>
+<td style="text-align:center;">
+0.6715294
+</td>
+<td style="text-align:center;">
+27.314769
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+10.819719
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+43.809819
+</td>
+<td style="text-align:center;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+A.J. Brown
+</td>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+Ole Miss
+</td>
+<td style="text-align:center;">
+983
+</td>
+<td style="text-align:center;">
+0.4625882
+</td>
+<td style="text-align:center;">
+27.503986
+</td>
+<td style="text-align:center;">
+32
+</td>
+<td style="text-align:center;">
+7.147165
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+47.860807
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+</tbody>
+</table>
+<p>This means that according to the weighted average this the positional breakdown of the first round:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+Position
+</th>
+<th style="text-align:center;">
+Number of Picks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+TE
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+G
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+RB
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p>As far as surprises, there aren’t too many but that should be the case given the consensus-building nature of this exercise and the number of mock drafts involved (2125)!</p>
+<p>Let’s now move on to the Loess modeled output:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+Name
+</th>
+<th style="text-align:center;">
+Position
+</th>
+<th style="text-align:center;">
+School
+</th>
+<th style="text-align:center;">
+Number of Mock Drafts
+</th>
+<th style="text-align:center;">
+Mock Draft Market Share
+</th>
+<th style="text-align:center;">
+Mock Draft Model
+</th>
+<th style="text-align:center;">
+Mock Draft Model Rank
+</th>
+<th style="text-align:center;">
+Mock Draft Model Upper Bound
+</th>
+<th style="text-align:center;">
+Mock Draft Model Upper Bound Rank
+</th>
+<th style="text-align:center;">
+Mock Draft Model Lower Bound
+</th>
+<th style="text-align:center;">
+Mock Draft Model Lower Bound Rank
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Kyler Murray
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Oklahoma
+</td>
+<td style="text-align:center;">
+1356
+</td>
+<td style="text-align:center;">
+0.6381176
+</td>
+<td style="text-align:center;">
+1.769735
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1.084824
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2.454647
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Nick Bosa
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Ohio State
+</td>
+<td style="text-align:center;">
+1796
+</td>
+<td style="text-align:center;">
+0.8451765
+</td>
+<td style="text-align:center;">
+2.038021
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.961233
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2.114809
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Quinnen Williams
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Alabama
+</td>
+<td style="text-align:center;">
+1683
+</td>
+<td style="text-align:center;">
+0.7920000
+</td>
+<td style="text-align:center;">
+3.602208
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3.262477
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3.941939
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Josh Allen
+</td>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+Kentucky
+</td>
+<td style="text-align:center;">
+1754
+</td>
+<td style="text-align:center;">
+0.8254118
+</td>
+<td style="text-align:center;">
+4.375711
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+3.982631
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4.768791
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Devin White
+</td>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+LSU
+</td>
+<td style="text-align:center;">
+1748
+</td>
+<td style="text-align:center;">
+0.8225882
+</td>
+<td style="text-align:center;">
+6.171992
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5.613341
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+6.730643
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Ed Oliver
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Houston
+</td>
+<td style="text-align:center;">
+1756
+</td>
+<td style="text-align:center;">
+0.8263529
+</td>
+<td style="text-align:center;">
+6.398545
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+5.930942
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+6.866148
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Jawaan Taylor
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Florida
+</td>
+<td style="text-align:center;">
+1381
+</td>
+<td style="text-align:center;">
+0.6498824
+</td>
+<td style="text-align:center;">
+9.615354
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+8.716014
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+10.514695
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Dwayne Haskins
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Ohio State
+</td>
+<td style="text-align:center;">
+1585
+</td>
+<td style="text-align:center;">
+0.7458824
+</td>
+<td style="text-align:center;">
+10.102019
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+9.572284
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+10.631754
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+T.J. Hockenson
+</td>
+<td style="text-align:center;">
+TE
+</td>
+<td style="text-align:center;">
+Iowa
+</td>
+<td style="text-align:center;">
+1236
+</td>
+<td style="text-align:center;">
+0.5816471
+</td>
+<td style="text-align:center;">
+10.687258
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+9.541049
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+11.833467
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Jonah Williams
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Alabama
+</td>
+<td style="text-align:center;">
+1733
+</td>
+<td style="text-align:center;">
+0.8155294
+</td>
+<td style="text-align:center;">
+11.680167
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+11.012671
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+12.347664
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Devin Bush
+</td>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+Michigan
+</td>
+<td style="text-align:center;">
+1328
+</td>
+<td style="text-align:center;">
+0.6249412
+</td>
+<td style="text-align:center;">
+14.133517
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+12.997360
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+15.269674
+</td>
+<td style="text-align:center;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Drew Lock
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Missouri
+</td>
+<td style="text-align:center;">
+1516
+</td>
+<td style="text-align:center;">
+0.7134118
+</td>
+<td style="text-align:center;">
+14.188327
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+13.163707
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+15.212948
+</td>
+<td style="text-align:center;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Montez Sweat
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Mississippi State
+</td>
+<td style="text-align:center;">
+1633
+</td>
+<td style="text-align:center;">
+0.7684706
+</td>
+<td style="text-align:center;">
+14.375471
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+13.562889
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+15.188052
+</td>
+<td style="text-align:center;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Rashan Gary
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Michigan
+</td>
+<td style="text-align:center;">
+1680
+</td>
+<td style="text-align:center;">
+0.7905882
+</td>
+<td style="text-align:center;">
+14.656478
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+13.793393
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+15.519563
+</td>
+<td style="text-align:center;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Daniel Jones
+</td>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+Duke
+</td>
+<td style="text-align:center;">
+1013
+</td>
+<td style="text-align:center;">
+0.4767059
+</td>
+<td style="text-align:center;">
+15.452653
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+13.564200
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+17.341106
+</td>
+<td style="text-align:center;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Brian Burns
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Florida State
+</td>
+<td style="text-align:center;">
+1488
+</td>
+<td style="text-align:center;">
+0.7002353
+</td>
+<td style="text-align:center;">
+15.732602
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+14.700802
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+16.764403
+</td>
+<td style="text-align:center;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Andre Dillard
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Washington State
+</td>
+<td style="text-align:center;">
+1129
+</td>
+<td style="text-align:center;">
+0.5312941
+</td>
+<td style="text-align:center;">
+15.786242
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+14.559434
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+17.013050
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Christian Wilkins
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Clemson
+</td>
+<td style="text-align:center;">
+1462
+</td>
+<td style="text-align:center;">
+0.6880000
+</td>
+<td style="text-align:center;">
+16.826244
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+15.867990
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+17.784498
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Cody Ford
+</td>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+Oklahoma
+</td>
+<td style="text-align:center;">
+1348
+</td>
+<td style="text-align:center;">
+0.6343529
+</td>
+<td style="text-align:center;">
+19.872720
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+18.936484
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+20.808955
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Clelin Ferrell
+</td>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+Clemson
+</td>
+<td style="text-align:center;">
+1694
+</td>
+<td style="text-align:center;">
+0.7971765
+</td>
+<td style="text-align:center;">
+19.896292
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+19.170091
+</td>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+20.622493
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+D.K. Metcalf
+</td>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+Ole Miss
+</td>
+<td style="text-align:center;">
+1377
+</td>
+<td style="text-align:center;">
+0.6480000
+</td>
+<td style="text-align:center;">
+20.175195
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+19.213041
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+21.137349
+</td>
+<td style="text-align:center;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Greedy Williams
+</td>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+LSU
+</td>
+<td style="text-align:center;">
+1684
+</td>
+<td style="text-align:center;">
+0.7924706
+</td>
+<td style="text-align:center;">
+21.485975
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+20.705032
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+22.266917
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Byron Murphy
+</td>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+Washington
+</td>
+<td style="text-align:center;">
+1447
+</td>
+<td style="text-align:center;">
+0.6809412
+</td>
+<td style="text-align:center;">
+22.714152
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+21.935381
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+23.492923
+</td>
+<td style="text-align:center;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Garrett Bradbury
+</td>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+NC State
+</td>
+<td style="text-align:center;">
+761
+</td>
+<td style="text-align:center;">
+0.3581176
+</td>
+<td style="text-align:center;">
+22.790640
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+20.799963
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+24.781317
+</td>
+<td style="text-align:center;">
+25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Marquise Brown
+</td>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+Oklahoma
+</td>
+<td style="text-align:center;">
+1120
+</td>
+<td style="text-align:center;">
+0.5270588
+</td>
+<td style="text-align:center;">
+22.824886
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+21.436293
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+24.213480
+</td>
+<td style="text-align:center;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Noah Fant
+</td>
+<td style="text-align:center;">
+TE
+</td>
+<td style="text-align:center;">
+Iowa
+</td>
+<td style="text-align:center;">
+1407
+</td>
+<td style="text-align:center;">
+0.6621176
+</td>
+<td style="text-align:center;">
+24.284584
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+23.267442
+</td>
+<td style="text-align:center;">
+26
+</td>
+<td style="text-align:center;">
+25.301727
+</td>
+<td style="text-align:center;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Chris Lindstrom
+</td>
+<td style="text-align:center;">
+G
+</td>
+<td style="text-align:center;">
+Boston College
+</td>
+<td style="text-align:center;">
+555
+</td>
+<td style="text-align:center;">
+0.2611765
+</td>
+<td style="text-align:center;">
+25.399608
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+23.364808
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+27.434408
+</td>
+<td style="text-align:center;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Jeffery Simmons
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Mississippi State
+</td>
+<td style="text-align:center;">
+1177
+</td>
+<td style="text-align:center;">
+0.5538824
+</td>
+<td style="text-align:center;">
+25.538225
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+24.278377
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+26.798073
+</td>
+<td style="text-align:center;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Josh Jacobs
+</td>
+<td style="text-align:center;">
+RB
+</td>
+<td style="text-align:center;">
+Alabama
+</td>
+<td style="text-align:center;">
+942
+</td>
+<td style="text-align:center;">
+0.4432941
+</td>
+<td style="text-align:center;">
+25.795465
+</td>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+24.460523
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+27.130407
+</td>
+<td style="text-align:center;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Rock Ya-Sin
+</td>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+Temple
+</td>
+<td style="text-align:center;">
+366
+</td>
+<td style="text-align:center;">
+0.1722353
+</td>
+<td style="text-align:center;">
+26.497735
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+23.404160
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+29.591310
+</td>
+<td style="text-align:center;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Dexter Lawrence
+</td>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+Clemson
+</td>
+<td style="text-align:center;">
+1296
+</td>
+<td style="text-align:center;">
+0.6098824
+</td>
+<td style="text-align:center;">
+26.573832
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+25.313917
+</td>
+<td style="text-align:center;">
+32
+</td>
+<td style="text-align:center;">
+27.833748
+</td>
+<td style="text-align:center;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+A.J. Brown
+</td>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+Ole Miss
+</td>
+<td style="text-align:center;">
+983
+</td>
+<td style="text-align:center;">
+0.4625882
+</td>
+<td style="text-align:center;">
+27.265296
+</td>
+<td style="text-align:center;">
+32
+</td>
+<td style="text-align:center;">
+25.684414
+</td>
+<td style="text-align:center;">
+33
+</td>
+<td style="text-align:center;">
+28.846178
+</td>
+<td style="text-align:center;">
+31
+</td>
+</tr>
+</tbody>
+</table>
+<p>And the positional breakdown:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+Position
+</th>
+<th style="text-align:center;">
+Number of Picks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+DE
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+DT
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+OT
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+QB
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+CB
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+LB
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+WR
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+TE
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+G
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+RB
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p>It looks like the weighted average has the same positional breakdown that the Loess output. Do we have convergence (potentially at large enough sample sizes and with over 75,000 rows of data that might be the case)?</p>
+<div class="figure">
+<img src="https://image.slidesharecdn.com/babywearingslideshare-150806223825-lva1-app6892/95/so-a-baby-walks-into-a-tech-conference-confronting-maternal-bias-in-the-software-industry-10-638.jpg?cb=1438990664" alt="Goddamn!" />
+<p class="caption">Goddamn!</p>
+</div>
+<p>It turns out, not exactly but its close. There are two players who only appear in one of the top 32 lists and both are cornerbacks: Deandre Baker (from the University of Georgia Bulldogs) and Rock Ya-Sin (from the Temple University Owls and on a side note one of my favorite names of the 2019 NFL Draft season/#szn). But there are 11 picks who have the same ranking in both datasets. Here they are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+Name
+</th>
+<th style="text-align:center;">
+Rank
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Kyler Murray
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Nick Bosa
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Quinnen Williams
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Josh Allen
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Devin White
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Ed Oliver
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Clelin Ferrell
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Greedy Williams
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Byron Murphy
+</td>
+<td style="text-align:center;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Garrett Bradbury
+</td>
+<td style="text-align:center;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+A.J. Brown
+</td>
+<td style="text-align:center;">
+32
+</td>
+</tr>
+</tbody>
+</table>
+<p>Alright, that’s enough for me. Enjoy the draft and look for me to post plenty of “Player Stock Charts” on my <a href="https://twitter.com/benj_robinson">Twitter Feed</a>. I’ll also be doing some follow up posts as well in the coming days/weeks! Thanks for following along on this little NFL Mock Draft data journey together. Its sure been fun!</p>
+</div>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/draft/">draft</a>, 
+            
+                <a href="/tags/nfl/">nfl</a>, 
+            
+                <a href="/tags/nfl-draft/">nfl draft</a>, 
+            
+                <a href="/tags/rstats/">rstats</a>, 
+            
+                <a href="/tags/data-science/">data science</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=Grinding%20the%20Mocks%3a%20%20My%202019%20Meta%20Mock%20Draft&url=https%3a%2f%2fbenjaminrobinson.github.io%2f2019%2f04%2f25%2f2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fbenjaminrobinson.github.io%2f2019%2f04%2f25%2f2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fbenjaminrobinson.github.io%2f2019%2f04%2f25%2f2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Benjamin Robinson - Personal Website &amp; Blog" href="https://benjaminrobinson.github.io/">Benjamin Robinson - Personal Website &amp; Blog</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2019 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://benjaminrobinson.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://benjaminrobinson.github.io/js/jquery.fitvids.js"></script>
+        
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        
+        
+        <script src="https://benjaminrobinson.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

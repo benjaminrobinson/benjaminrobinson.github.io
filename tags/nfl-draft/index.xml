@@ -2,32 +2,43 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nfl Draft on Benjamin Robinson - Personal Website &amp; Blog</title>
-    <link>/tags/nfl-draft/</link>
+    <link>https://benjaminrobinson.github.io/tags/nfl-draft/</link>
     <description>Recent content in Nfl Draft on Benjamin Robinson - Personal Website &amp; Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Benjamin Robinson</copyright>
-    <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/nfl-draft/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://benjaminrobinson.github.io/tags/nfl-draft/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Grinding the Mocks:  My 2019 Meta Mock Draft</title>
+      <link>https://benjaminrobinson.github.io/2019/04/25/2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjaminrobinson.github.io/2019/04/25/2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft/</guid>
+      <description>Draft Day Has Arrived!Oh the joys of the movie Draft Day featuring Kevin Costner
+Tonight is the night! Yes, ladies and gentleman, the 2019 NFL Draft is upon us. With no further, ado, since you can reference my other blog posts about my theory of action and my methodology and performance in the 2018 NFL Draft. Here you go!
+According to my research, there are two metrics to look closely at out of the ones I’ve studied: the weighted average where we weight each mock draft by how close it is made to the day of the NFL Draft and the output of prediction made using a Loess regression model, a method that smooths out data instead of trying to fit a line of best fit through our data to better indentify trends.</description>
+    </item>
+    
+    <item>
       <title>Grinding the Mocks:  The Signal and the Noise</title>
-      <link>/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/</link>
+      <link>https://benjaminrobinson.github.io/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/</link>
       <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/</guid>
+      <guid>https://benjaminrobinson.github.io/2019/04/15/2019-04-15-grinding-the-mocks-the-signal-and-the-noise/</guid>
       <description>The Approachalt text
 At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last blog post, I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player’s stock throughout the NFL Draft process.</description>
     </item>
     
     <item>
       <title>Grinding the Mocks: A Theory of Mock Drafts</title>
-      <link>/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</link>
+      <link>https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</link>
       <pubDate>Mon, 25 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</guid>
+      <guid>https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/</guid>
       <description>The Nostalgia Factor As an analytical-minded person who was simultaneously consuming my third straight day of television coverage of the National Football League draft, the following thought crept into my brain: &amp;ldquo;why do I care so much about the NFL Draft?&amp;rdquo; After searching long and hard for an answer, I have come to believe that one reason I&amp;rsquo;m so interested in the draft is because at its heart, the draft is a source of optimism in a world where the team you root for might not always win on the field.</description>
     </item>
     
