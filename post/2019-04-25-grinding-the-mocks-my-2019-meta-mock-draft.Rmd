@@ -31,7 +31,7 @@ gs_key(
   "1f9WYqbCIy-NzbUGzAHSUqja2sJ2rnWuHzNciR_3Vk5E",
   lookup = FALSE,
   verbose = FALSE
-) %>% gs_read("Projected") %>%
+) %>% gs_read("Mocks") %>%
   anti_join(
     gs_key(
       "1f9WYqbCIy-NzbUGzAHSUqja2sJ2rnWuHzNciR_3Vk5E",

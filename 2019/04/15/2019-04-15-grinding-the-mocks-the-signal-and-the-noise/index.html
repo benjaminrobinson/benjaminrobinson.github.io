@@ -122,7 +122,7 @@ if (!doNotTrack) {
 <div id="the-approach" class="section level3">
 <h3>The Approach</h3>
 <div class="figure">
-<img src="https://cdn.shopify.com/s/files/1/0052/7610/6855/products/mockup-eed382bf_720x.jpg?v=1554343113" title="What my friends think I am versus my imposter syndrome, Photo from PFF" alt="alt text" />
+<img src="https://cdn.shopify.com/s/files/1/0052/7610/6855/products/mockup-eed382bf_720x.jpg?v=1554343113" title="What my friends think I am versus my imposter syndrome, Photo from PFF" alt="" />
 <p class="caption">alt text</p>
 </div>
 <p>At the time this post will go live, the draft will be 10 days away! With that in mind, its time for the second of my series of blog posts about using mock draft data to predict the NFL Draft. In my last <a href="https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/">blog post</a>, I layed out my theory of mock drafts and how I think about using mock drafts as a way of assessing a player’s stock throughout the NFL Draft process. This post aims to get a bit deeper into the data and statistical aspects of using mock draft data to predict the actual outcomes of the NFL Draft.</p>
@@ -133,7 +133,6 @@ if (!doNotTrack) {
 <pre class="r"><code>options(stringsAsFactors = FALSE, scipen = 7)
 library(tidyr)
 library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.4</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -142,10 +141,8 @@ library(dplyr)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.4.4</code></pre>
-<pre class="r"><code>library(plotly)</code></pre>
-<pre><code>## Warning: package &#39;plotly&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(plotly)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;plotly&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
@@ -157,13 +154,10 @@ library(dplyr)</code></pre>
 <pre><code>## The following object is masked from &#39;package:graphics&#39;:
 ## 
 ##     layout</code></pre>
-<pre class="r"><code>library(teamcolors)</code></pre>
-<pre><code>## Warning: package &#39;teamcolors&#39; was built under R version 3.4.4</code></pre>
-<pre class="r"><code>library(ggrepel)</code></pre>
-<pre><code>## Warning: package &#39;ggrepel&#39; was built under R version 3.4.4</code></pre>
-<pre class="r"><code>library(ggthemes)</code></pre>
-<pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 3.4.4</code></pre>
-<pre class="r"><code>library(broom)
+<pre class="r"><code>library(teamcolors)
+library(ggrepel)
+library(ggthemes)
+library(broom)
 
 `%notin%` &lt;- function(x, y) !(x %in% y)
 
@@ -295,18 +289,14 @@ prj %&gt;%
   do(mock = lm(pick ~ value, data = .)) %&gt;%
   glance(mock) %&gt;%
   as.data.frame</code></pre>
-<pre><code>##                            metric r.squared adj.r.squared    sigma
-## 1          Average Draft Position 0.5423606     0.5409077 59.61236
-## 2           Median Draft Position 0.5063135     0.5047462 61.91562
-## 3 Weighted Average Draft Position 0.6332899     0.6321257 53.36249
-##   statistic      p.value df    logLik      AIC      BIC  deviance
-## 1  373.3148 2.072960e-55  2 -1744.653 3495.306 3506.583 1119394.7
-## 2  323.0567 3.292161e-50  2 -1756.670 3519.340 3530.617 1207566.5
-## 3  543.9892 1.354256e-70  2 -1709.544 3425.087 3436.364  896979.8
-##   df.residual
-## 1         315
-## 2         315
-## 3         315</code></pre>
+<pre><code>##                            metric r.squared adj.r.squared    sigma statistic
+## 1          Average Draft Position 0.5423606     0.5409077 59.61236  373.3148
+## 2           Median Draft Position 0.5063135     0.5047462 61.91562  323.0567
+## 3 Weighted Average Draft Position 0.6332899     0.6321257 53.36249  543.9892
+##        p.value df    logLik      AIC      BIC  deviance df.residual
+## 1 2.072960e-55  2 -1744.653 3495.306 3506.583 1119394.7         315
+## 2 3.292161e-50  2 -1756.670 3519.340 3530.617 1207566.5         315
+## 3 1.354256e-70  2 -1709.544 3425.087 3436.364  896979.8         315</code></pre>
 <p>So it turns out that in a simple linear regression the basic metrics explain about <strong>TWO-THIRDS</strong> of the variation in actual mock draft selections. That’s pretty great on its face for a single metric!</p>
 <p>However, this takes into account the whole universe of mock draft and most folks only care about the first round of the NFL Draft and that’s probably the only part of the draft worth using the mock draft data to predict the outcome of the draft en-masse. Let’s focus on the first round of the draft:</p>
 <pre class="r"><code>agg %&gt;%
@@ -387,50 +377,38 @@ prj %&gt;%
 ## 1 First Round Actual Draft Picks          Average Draft Position
 ## 2 First Round Actual Draft Picks           Median Draft Position
 ## 3 First Round Actual Draft Picks Weighted Average Draft Position
-##   Mock Draft Position Mean Squared Error
-## 1                               191.8729
-## 2                               168.0625
-## 3                               283.6368
-##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
-## 1                             364.59375                     0.6918107
-## 2                              98.84375                     0.6947786
-## 3                             423.12500                     0.6252490
-##   Mock Draft Ranking Correlation
-## 1                      0.6831410
-## 2                      0.6671132
-## 3                      0.6017523</code></pre>
+##   Mock Draft Position Mean Squared Error Mock Draft Ranking Mean Squared Error
+## 1                               191.8729                             364.59375
+## 2                               168.0625                              98.84375
+## 3                               283.6368                             423.12500
+##   Mock Draft Metric Correlation Mock Draft Ranking Correlation
+## 1                     0.6918107                      0.6831410
+## 2                     0.6947786                      0.6671132
+## 3                     0.6252490                      0.6017523</code></pre>
 <pre><code>##                 Player Subset                          Metric
 ## 1 First Round Mock Draft Rank          Average Draft Position
 ## 2 First Round Mock Draft Rank           Median Draft Position
 ## 3 First Round Mock Draft Rank Weighted Average Draft Position
-##   Mock Draft Position Mean Squared Error
-## 1                               754.2557
-## 2                              2809.6447
-## 3                               110.7990
-##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
-## 1                              756.9375                     0.6165475
-## 2                             3183.6491                     0.4558563
-## 3                              103.8125                     0.7820824
-##   Mock Draft Ranking Correlation
-## 1                      0.5905570
-## 2                      0.4680832
-## 3                      0.8011319</code></pre>
+##   Mock Draft Position Mean Squared Error Mock Draft Ranking Mean Squared Error
+## 1                               754.2557                              756.9375
+## 2                              2809.6447                             3183.6491
+## 3                               110.7990                              103.8125
+##   Mock Draft Metric Correlation Mock Draft Ranking Correlation
+## 1                     0.6165475                      0.5905570
+## 2                     0.4558563                      0.4680832
+## 3                     0.7820824                      0.8011319</code></pre>
 <pre><code>##                     Player Subset                          Metric
 ## 1 First Round Mock Draft Position          Average Draft Position
 ## 2 First Round Mock Draft Position           Median Draft Position
 ## 3 First Round Mock Draft Position Weighted Average Draft Position
-##   Mock Draft Position Mean Squared Error
-## 1                               692.6951
-## 2                              1920.4643
-## 3                               437.5016
-##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
-## 1                              686.3590                     0.5530910
-## 2                             2220.3265                     0.4988623
-## 3                              407.5833                     0.6105045
-##   Mock Draft Ranking Correlation
-## 1                      0.4949965
-## 2                      0.4920950
-## 3                      0.6331873</code></pre>
+##   Mock Draft Position Mean Squared Error Mock Draft Ranking Mean Squared Error
+## 1                               692.6951                              686.3590
+## 2                              1920.4643                             2220.3265
+## 3                               437.5016                              407.5833
+##   Mock Draft Metric Correlation Mock Draft Ranking Correlation
+## 1                     0.5530910                      0.4949965
+## 2                     0.4988623                      0.4920950
+## 3                     0.6105045                      0.6331873</code></pre>
 <p>What we see confirms the need to have multiple metrics for comparison purposes. While Weighted Average Draft Position minimizes the Mean Squared Error for a player’s estimated draft position and draft rank, with the benefit of hindsight, the Median Draft Position metric predicts the players who actually went in the 1st round best, mostly because as part of its definition, the median does not react as strongly to outliers. However, based on my assumptions and the quantity and quality of my 2019 NFL Mock Draft data, I will use the Weighted Average Draft Position going forward as my central tendency metric of choice for predicting actual draft position.</p>
 </div>
 <div id="the-models" class="section level2">
@@ -479,21 +457,20 @@ left_join(teamcolors %&gt;%
          residual_rank = abs(rank - pick)) %&gt;%
   as.data.frame
 ) -&gt; models</code></pre>
-<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;)</code></pre>
-<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;, &quot;draft_year&quot;)</code></pre>
-<pre><code>## Joining, by = &quot;team&quot;</code></pre>
+<pre><code>## Joining, by = c(&quot;name&quot;, &quot;position&quot;, &quot;school&quot;)Joining, by = c(&quot;name&quot;, &quot;position&quot;,
+## &quot;school&quot;, &quot;draft_year&quot;)Joining, by = &quot;team&quot;</code></pre>
 <p>Let’s run the same diagnostics we did for the aggregate metrics:</p>
 <pre class="r"><code>models %&gt;%
   group_by(metric) %&gt;%
   do(mock = lm(pick ~ value, data = .)) %&gt;%
   glance(mock) %&gt;%
   as.data.frame</code></pre>
-<pre><code>##              metric r.squared adj.r.squared    sigma statistic
-## 1 Linear Regression 0.6005095     0.5985981 44.04117  314.1664
-## 2  Loess Regression 0.6071465     0.6049760 40.99118  279.7315
-##        p.value df     logLik      AIC      BIC deviance df.residual
-## 1 1.614930e-43  2 -1097.0526 2200.105 2210.161 405381.6         209
-## 2 1.436171e-38  2  -938.2045 1882.409 1892.038 304130.0         181</code></pre>
+<pre><code>##              metric r.squared adj.r.squared    sigma statistic      p.value df
+## 1 Linear Regression 0.6005095     0.5985981 44.04117  314.1664 1.614930e-43  2
+## 2  Loess Regression 0.6071465     0.6049760 40.99118  279.7315 1.436171e-38  2
+##       logLik      AIC      BIC deviance df.residual
+## 1 -1097.0526 2200.105 2210.161 405381.6         209
+## 2  -938.2045 1882.409 1892.038 304130.0         181</code></pre>
 <p>Looks like overall, the linear and Loess regression modesl perform similarly well with an R squared value that explains about 60% of the variation in the actual 2018 NFRL Draft selections.</p>
 <pre class="r"><code>models %&gt;%
   ggplot(aes(
@@ -567,39 +544,30 @@ left_join(teamcolors %&gt;%
 <pre><code>##                    Player Subset            Metric
 ## 1 First Round Actual Draft Picks Linear Regression
 ## 2 First Round Actual Draft Picks  Loess Regression
-##   Mock Draft Position Mean Squared Error
-## 1                               238.9097
-## 2                               308.9240
-##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
-## 1                              303.7188                     0.6654195
-## 2                              384.0625                     0.6060257
-##   Mock Draft Ranking Correlation
-## 1                      0.6601037
-## 2                      0.6113017</code></pre>
+##   Mock Draft Position Mean Squared Error Mock Draft Ranking Mean Squared Error
+## 1                               238.9097                              303.7188
+## 2                               308.9240                              384.0625
+##   Mock Draft Metric Correlation Mock Draft Ranking Correlation
+## 1                     0.6654195                      0.6601037
+## 2                     0.6060257                      0.6113017</code></pre>
 <pre><code>##                 Player Subset            Metric
 ## 1 First Round Mock Draft Rank Linear Regression
 ## 2 First Round Mock Draft Rank  Loess Regression
-##   Mock Draft Position Mean Squared Error
-## 1                               510.6507
-## 2                                97.4431
-##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
-## 1                              477.0312                     0.6424860
-## 2                               97.7500                     0.7558404
-##   Mock Draft Ranking Correlation
-## 1                      0.6878918
-## 2                      0.7460792</code></pre>
+##   Mock Draft Position Mean Squared Error Mock Draft Ranking Mean Squared Error
+## 1                               510.6507                              477.0312
+## 2                                97.4431                               97.7500
+##   Mock Draft Metric Correlation Mock Draft Ranking Correlation
+## 1                     0.6424860                      0.6878918
+## 2                     0.7558404                      0.7460792</code></pre>
 <pre><code>##                     Player Subset            Metric
 ## 1 First Round Mock Draft Position Linear Regression
 ## 2 First Round Mock Draft Position  Loess Regression
-##   Mock Draft Position Mean Squared Error
-## 1                               485.4605
-## 2                               438.5455
-##   Mock Draft Ranking Mean Squared Error Mock Draft Metric Correlation
-## 1                              458.9706                     0.6021054
-## 2                              391.7027                     0.6245101
-##   Mock Draft Ranking Correlation
-## 1                      0.6200909
-## 2                      0.6628927</code></pre>
+##   Mock Draft Position Mean Squared Error Mock Draft Ranking Mean Squared Error
+## 1                               485.4605                              458.9706
+## 2                               438.5455                              391.7027
+##   Mock Draft Metric Correlation Mock Draft Ranking Correlation
+## 1                     0.6021054                      0.6200909
+## 2                     0.6245101                      0.6628927</code></pre>
 <p>While it seems that the Linear Regression is best for the ex post facto analysis of looking back at 2018 NFL Draft 1st round actuals, the Loess Regression has the lower of the two modeled estimates in terms of minimizing the Mean Squared Error of the predicted draft positions relative to actuals.</p>
 </div>
 <div id="the-conclusion" class="section level2">
