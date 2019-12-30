@@ -1,21 +1,21 @@
 ---
-title: "Have Rumors of Tua's Demise Been Greatly Exaggerated?"
-author: "Benjamin Robinson"
+title: Have Rumors of Tua's Demise Been Greatly Exaggerated
+author: Benjamin Robinson
 date: '2019-12-30'
-description: ''
 slug: have-rumors-of-tua-s-demise-been-greatly-exaggerated
-tags:
-- nfl
-- nfl draft
-- draft
-- tua
-- alabama
-- qb
-- football
-- crimsontide
-- sec
-- cfb
 categories: []
+tags:
+  - data science
+  - draft
+  - nfl
+  - nfl draft
+  - rstats
+  - sec
+  - tua
+  - alabama
+  - qb
+  - diffindiff
+description: ''
 ---
 ```{r global, include=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 options(stringsAsFactors = FALSE, scipen = 999)
@@ -75,7 +75,7 @@ stock %>%
         group = name
     )) +
     geom_jitter() +
-    scale_y_reverse(breaks = c(16, 10, 5, 1), limits = c(16, 0)) +
+    scale_y_reverse(breaks = c(32, 25, 16, 10, 1), limits = c(32, 0)) +
     scale_color_colorblind() +
     geom_smooth(method = 'lm') +
     theme_pander() +
@@ -224,7 +224,7 @@ So what did we learn by applying a statistical (and sort of econometric) lens to
 
 This analysis could be all be moot, however, if Tua decides to not enter the 2020 NFL Draft at all! Underclassmen have until January 20th of 2020 to decide if they want to give up their college eligibility and test the NFL waters. I don't have any advice to give to Tua on that front but I do know that even if he does enter the draft, there are probably a lot more questions than answers about his draft prospects. The medical testing that is done at annual NFL Scouting Combine will shed a lot of light on his health situation for teams to get a better understanding on (making a NBA Draft analogy here) if they have a Joel Embiid or Greg Oden situation on their hands!
 
-My plans are to continue to collect mock drafts as the draft season progresses and to write more about what I hope are interesting topics using mock draft data. If you are interested in chatting more about this type of work or have interesting ideas for future blog posts, please do not hesitate to reach out to me here or on [Twitter](https://twitter.com/benj_robinson) or using the [#GrindingtheMocks hashtag](https://twitter.com/search?q=%23GrindingtheMocks)!
+My plans are to continue to collect mock drafts as the draft season progresses and to use mock draft data to write more about what I hope are topics of interest to folks. If you are interested in chatting more about this type of work or have interesting ideas for future blog posts, please do not hesitate to reach out to me here or on [Twitter](https://twitter.com/benj_robinson) or using the [#GrindingtheMocks hashtag](https://twitter.com/search?q=%23GrindingtheMocks)!
 
 # Appendix
 ## Regression Results

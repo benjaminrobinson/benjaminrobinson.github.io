@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://benjaminrobinson.github.io/2019/12/30/2019-12-30-have-rumors-of-tua-s-demise-been-greatly-exaggerated/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://benjaminrobinson.github.io/2019/04/25/2019-04-25-grinding-the-mocks-my-2019-meta-mock-draft/</loc>
     <lastmod>2019-04-25T00:00:00+00:00</lastmod>
   </url>
@@ -23,32 +28,44 @@
   </url>
   
   <url>
+    <loc>https://benjaminrobinson.github.io/tags/alabama/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://benjaminrobinson.github.io/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjaminrobinson.github.io/tags/data-science/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://benjaminrobinson.github.io/tags/diffindiff/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjaminrobinson.github.io/tags/draft/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjaminrobinson.github.io/tags/nfl/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjaminrobinson.github.io/tags/nfl-draft/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -60,19 +77,37 @@
   
   <url>
     <loc>https://benjaminrobinson.github.io/post/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://benjaminrobinson.github.io/tags/qb/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjaminrobinson.github.io/tags/rstats/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://benjaminrobinson.github.io/tags/sec/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjaminrobinson.github.io/tags/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://benjaminrobinson.github.io/tags/tua/</loc>
+    <lastmod>2019-12-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
