@@ -40,6 +40,7 @@ logo = col_character()
 ) %>%
 mutate_at(vars(contains("date")),
 list(~ as.Date(., format = "%Y-%m-%d"))) %>%
+filter(date <= as.Date("2019-12-30")) %>%
 mutate(
 is_tua = ifelse(name == 'Tua Tagovailoa', 'Tua', 'Non-Tua'),
 days_before_draft = (draft_date - date) %>% as.numeric
