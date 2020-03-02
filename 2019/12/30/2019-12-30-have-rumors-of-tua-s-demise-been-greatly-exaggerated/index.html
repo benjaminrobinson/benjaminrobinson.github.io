@@ -128,7 +128,7 @@ if (!doNotTrack) {
 <p><img src="/post/2019-12-30-have-rumors-of-tua-s-demise-been-greatly-exaggerated_files/figure-html/tua_post_injury-1.png" width="672" /></p>
 <p>Using mock draft data as of December 30, 2019, we see that mock drafts published on and/or after the date of Tua’s injury give him an Average Draft Position of 8.05. This is a difference of about 6 in terms of pre and post injury ADP! But is that a significant difference?</p>
 <p><img src="/post/2019-12-30-have-rumors-of-tua-s-demise-been-greatly-exaggerated_files/figure-html/tua_pre_post_injury-1.png" width="672" /></p>
-<p>The short answer is that the chart above says no, mainly because the variance of Tua’s mock draft selections. If you remember, before the injury, Tua’s ADP was 2.05 but the mock draft selections also had a standard deviation of 1.96. Similarly, post-injury, Tua’s mock draft selections had an ADP of 8.05 but with a standard deviation of 6.54.</p>
+<p>The short answer is that the chart above says no, mainly because the variance of Tua’s mock draft selections. If you remember, before the injury, Tua’s ADP was 2.05 but the mock draft selections also had a standard deviation of 1.96. Similarly, post-injury, Tua’s mock draft selections had an ADP of 8.05 but with a standard deviation of 6.55.</p>
 <p>Using today’s Expected Draft Position leaderboard, a drop of 6 points of Average Draft Position translates to a drop from the 1st overall pick to the 7th or 8th pick in the NFL Draft. However, we know that this does not fully approximate how much Tua’s draft stock has actually fallen. To do that, we need to make sure we control for the change in other players’ draft stocks to see if the draft stock of players that are similar to Tua went up or down even as Tua’s stock declined.</p>
 <p><img src="/post/2019-12-30-have-rumors-of-tua-s-demise-been-greatly-exaggerated_files/figure-html/tua_qb_non_comp-1.png" width="672" /></p>
 <p>So, according to this last chart, Tua’s stock was beginning to decline a little bit before the injury anyway, largely in part due to the rise of Joe Burrow but it seems that his injury may have accelerated that decline. Performing a difference-in-differences analysis, where we compare the difference in means before and after Tua’s injury across the groups of interest will help us tease out a more accurate (and more causal) estimate of the impact of Tua’s injury (regression results table in the Appendix).</p>
@@ -150,48 +150,48 @@ So what did we learn by applying a statistical (and sort of econometric) lens to
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">(Intercept)</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-41.32 ***</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-26.54 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-40.09 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-25.30 ***</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;"></td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[-41.88, -40.75]&nbsp;&nbsp;&nbsp;</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[-28.03, -25.05]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[-40.69, -39.49]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[-26.71, -23.89]&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">`Tua Indicator`TRUE</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">39.27 ***</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">24.49 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">38.04 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">23.25 ***</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;"></td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[35.45, 43.08]&nbsp;&nbsp;&nbsp;</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[21.31, 27.66]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[34.23, 41.85]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[20.26, 26.23]&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">`Injury Indicator`TRUE</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">6.17 ***</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">6.77 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">6.26 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">6.22 ***</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;"></td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[5.28, 7.06]&nbsp;&nbsp;&nbsp;</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[4.44, 9.10]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[5.32, 7.20]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">[4.02, 8.42]&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">`Tua Indicator`TRUE:`Injury Indicator`TRUE</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-12.16 ***</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-12.77 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-12.26 ***</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">-12.22 ***</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;"></td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 4pt 4pt 4pt 4pt;">[-18.23, -6.09]&nbsp;&nbsp;&nbsp;</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 4pt 4pt 4pt 4pt;">[-17.80, -7.73]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 4pt 4pt 4pt 4pt;">[-18.33, -6.19]&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt; padding: 4pt 4pt 4pt 4pt;">[-16.96, -7.49]&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">N</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">38837&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">3907&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">34871&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="vertical-align: top; text-align: right; white-space: nowrap; padding: 4pt 4pt 4pt 4pt;">3878&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
 <td style="vertical-align: top; text-align: left; white-space: nowrap; border-style: solid solid solid solid; border-width: 0pt 0pt 0.8pt 0pt; padding: 4pt 4pt 4pt 4pt;">R2</td>
@@ -288,7 +288,7 @@ So what did we learn by applying a statistical (and sort of econometric) lens to
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2019 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2020 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>

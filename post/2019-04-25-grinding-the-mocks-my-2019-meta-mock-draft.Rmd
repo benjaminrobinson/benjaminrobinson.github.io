@@ -26,20 +26,13 @@ library(dplyr)
 library(tidyr)
 library(teamcolors)
 library(knitr)
+library(pins)
 
-gs_key(
-  "1f9WYqbCIy-NzbUGzAHSUqja2sJ2rnWuHzNciR_3Vk5E",
-  lookup = FALSE,
-  verbose = FALSE
-) %>% gs_read("Mocks") %>%
-  anti_join(
-    gs_key(
-      "1f9WYqbCIy-NzbUGzAHSUqja2sJ2rnWuHzNciR_3Vk5E",
-      lookup = FALSE,
-      verbose = FALSE
-    ) %>% gs_read("Undraftable")
-  ) %>%
-  mutate(date = as.Date(date, format = "%m/%d/%Y")) -> prj
+board_register(board = "local")
+
+pin_get("2019_Mocks") %>%
+anti_join(pin_get("2019_Undraftable")) %>%
+mutate(date = as.Date(date, format = "%m/%d/%Y")) -> prj
 
 n_distinct(paste(prj$site, prj$date, prj$url)) -> total_drafts
 

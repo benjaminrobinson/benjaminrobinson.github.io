@@ -131,8 +131,9 @@ if (!doNotTrack) {
 <p>A linear regression take a series of points and tries to fit a line of best fit in the data based off where the points cluster to minimize the difference between your prediction and the actual outcomes you’re trying to predict. In this case, we’re trying to use mock draft data to predict actual NFL draft selections. A loess regression takes a slightly different approach in that it attempts to fit a line through your data but attempts <em>smooth</em> the data you provide it to account for change over time, which is often why its known as a “moving regression”.</p>
 <p>Let’s begin by setting up the data and calculating the basic summary statistics for our draft eligible players in mock drafts.</p>
 <pre class="r"><code>options(stringsAsFactors = FALSE, scipen = 7)
-library(tidyr)
-library(dplyr)</code></pre>
+library(tidyr)</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.6.2</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -649,7 +650,7 @@ left_join(teamcolors %&gt;%
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2019 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2020 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>

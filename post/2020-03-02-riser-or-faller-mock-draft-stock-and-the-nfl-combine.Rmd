@@ -1,0 +1,951 @@
+---
+title: Riser or Faller? Mock Draft Stock and the NFL Combine
+author: Benjamin Robinson
+date: '2020-03-02'
+slug: riser-or-faller-mock-draft-stock-and-the-nfl-combine
+categories: []
+tags:
+  - data science
+  - draft
+  - nfl
+  - nfl draft
+  - rstats
+  - combine
+  - ras
+  - adp
+description: ''
+---
+```{r setup, include=FALSE}
+options(stringsAsFactors = FALSE, scipen = 999)
+library(tidyverse)
+library(fuzzyjoin)
+library(xml2)
+library(rvest)
+library(janitor)
+library(pins)
+library(lubridate)
+library(ggthemes)
+library(scales)
+library(knitr)
+library(patchwork)
+library(ggridges)
+
+reverselog_trans <- function(base = exp(1)) {
+  trans <- function(x)
+    - log(x, base)
+  inv <- function(x)
+    base ^ (-x)
+  trans_new(
+    paste0("reverselog-", format(base)),
+    trans,
+    inv,
+    log_breaks(base = base),
+    domain = c(1e-100, Inf)
+  )
+}
+
+data.frame(draft_year = 2018:2020,
+combine_date = as.Date(c("2018-03-05", "2019-03-04", "2020-03-02"))) -> comb_date
+
+board_get("local")
+
+bind_rows(pin_get("2018_Mocks"),
+pin_get("2019_Mocks")) %>%
+mutate_at(vars(contains("date")),
+list(~ as.Date(., format = "%m/%d/%Y"))) %>%
+anti_join(bind_rows(
+pin_get("2018_Undraftable"),
+pin_get("2019_Undraftable"),
+pin_get("2020_Undraftable")
+)) %>% left_join(comb_date) %>%
+filter(date >= combine_date %m-% weeks(2) &
+date <= combine_date %m+% weeks(2)) -> mocks
+
+txt = "*ADAMS, JOSH, NOTRE DAME, RB
+*ADENIYI, OLA, TOLEDO, DL
+AKINS, JORDAN, CENTRAL FLORIDA, TE
+*ALEXANDER, JAIRE, LOUISVILLE, DB
+ALLEN, AUSTIN, ARKANSAS, QB
+ALLEN, BRIAN, MICHIGAN ST., OL
+ALLEN, JOSH, WYOMING, QB
+ALLEN, MARCUS, PENN ST., DB
+*ANDREWS, MARK, OKLAHOMA, TE
+APKE, TROY, PENN ST., DB
+*ARMSTRONG, DORANCE, KANSAS, DL
+ARUNA, ADETARAMI, TULANE, DL
+ATEMAN, MARCELL, OKLAHOMA ST., WR
+ATKINS, JOHN, GEORGIA, DL
+AVERETT, ANTHONY, ALABAMA, DB
+AVERY, GENARD, MEMPHIS, LB
+
+
+BADGLEY, MIKE, MIAMI, PK
+*BAKER, JEROME, OHIO ST., LB
+BALLAGE, KALEN, ARIZONA ST., RB
+*BARKLEY, SAQUON, PENN ST., RB
+BARRETT, JT, OHIO ST., QB
+*BATES, JESSIE, WAKE FOREST., DB
+BAUGH, MARCUS, OHIO ST., TE
+BAWDEN, NICK, SAN DIEGO ST., RB
+BELLAMY, DAVIN, GEORGIA, LB
+BENKERT, KURT, VIRGINIA, QB
+BERRIOS, BRAXTON, MIAMI, WR
+BIERRIA, KEISHAWN, WASHINGTON, LB
+BLANDING, QUIN, VIRGINIA, DB
+BRIGHT, DAVID, STANFORD, OL
+BROWN, ANDREW, VIRGINIA, DL
+BROWN, DREW, NEBRASKA, PK
+*BROWN, ORLANDO, OKLAHOMA, OL
+BROWN, TONY, ALABAMA, DB
+*BRYAN, TAVEN, FLORIDA, DL
+BURKS, OREN, VANDERBILT, LB
+*BURNETT, DEONTAY, USC, WR
+
+
+CABINDA, JASON, PENN ST., LB
+*CAIN, DEON, CLEMSON, WR
+*CALLAWAY, ANTONIO, FLORIDA, WR
+CAMPBELL, CHRIS, PENN ST., DB
+CANTRELL, DYLAN, TEXAS TECH, WR
+CAPPA, ALEX, HUMBOLDT ST., OL
+CAREW, TANNER, OREGON, LS
+CARLSON, DANIEL, AUBURN, PK
+CARRINGTON, DARREN, UTAH, WR
+CARTER, LORENZO, GEORGIA, LB
+CHACHERE, ANDRE, SAN JOSE ST., DB
+CHANDLER, SEAN, TEMPLE, DB
+CHARK, DJ, LSU, WR
+*CHRISTIAN, GERON, LOUISVILLE, OL
+CHUBB, BRADLEY, NORTH CAROLINA ST., DL
+CHUBB, NICK, GEORGIA, RB
+CICHY, JACK, WISCONSIN, LB
+CLAPP, WILL, LSU, OL
+*COBBS, SIMMIE, INDIANA, WR
+COLE, MASON, MICHIGAN, OL
+COLEMAN, LAVON, WASHINGTON, RB
+CONKLIN, TYLER, CENTRAL MICHIGAN, TE
+CORBETT, AUSTIN, NEVADA, OL
+*COUTEE, KEKE, TEXAS TECH, WR
+COVINGTON, CHRIS, INDIANA, LB
+CRAWFORD, JUSTIN, WEST VIRGINIA, RB
+CROSBY, TYRELL, OREGON, OL
+CRUIKSHANK, DANE, ARIZONA, DB
+
+
+DANIEL, TREVOR, TENNESSEE, P
+*DANIELS, JAMES, IOWA, OL
+*DARNOLD, SAM, USC, QB
+DAVENPORT, MARCUS, UTSA, DL
+DAVIDSON, JOSEPH, BOWLING GREEN, P
+*DAVIS, CARLTON, AUBURN, DB
+DAWSON, DUKE, FLORIDA, DB
+DELANEY, DEE, MIAMI, DB
+DELUCA, NICK, NORTH DAKOTA ST., LB
+DEMBY, JAMIL, MAINE, OL
+DICKERSON, MATT, UCLA, DL
+*DICKSON, MICHAEL, TEXAS, P
+DISSLY, WILL, WASHINGTON, TE
+DOOLEY, GARRET, WISCONSIN, LB
+
+EDMONDS, CHASE, FORDHAM, RB
+EDMUNDS, TERRELL, VIRGINIA TECH, DB
+*EDMUNDS, TREMAINE, VIRGINIA TECH, LB
+EJIOFOR, DUKE, WAKE FOREST., DL
+*ELLIOTT, DESHON, TEXAS, DB
+ERNSBERGER, DONNIE, WESTERN MICHIGAN, RB
+ETLING, DANNY, LSU, QB
+EVANS, RASHAAN, ALABAMA, LB
+
+
+FACYSON, BRANDON, VIRGINIA TECH, DB
+FALK, LUKE, WASHINGTON ST., QB
+FANT, RASHARD, INDIANA, DB
+FATUKASI, FOLEY, CONNECTICUT, DL
+FERGUSON, RILEY, MEMPHIS, QB
+FITTS, KYLIE, UTAH, DL
+*FITZPATRICK, MINKAH, ALABAMA, DB
+FLOWERS, DIMITRI, OKLAHOMA, RB
+FLOWERS, QUINTON, SOUTH FLORIDA, QB
+FLOWERS, TRE, OKLAHOMA ST., DB
+FOSTER, ROBERT, ALABAMA, WR
+FRANKLIN, JARVION, WESTERN MICHIGAN, RB
+FRANKLIN-MYERS, JOHN, STEPHEN F AUSTIN, DL
+FRAZIER, JOSHUA, ALABAMA, DL
+FREEMAN, ROYCE, OREGON, RB
+FUMAGALLI, TROY, WISCONSIN, TE
+
+GALLUP, MICHAEL, COLORADO ST., WR
+*GATES, NICK, NEBRASKA, OL
+*GAULDEN, RASHAAN, TENNESSEE, DB
+GESICKI, MIKE, PENN ST., TE
+GOEDERT, DALLAS, SOUTH DAKOTA ST., TE
+GOSSETT, COLBY, APPALACHIAN ST., OL
+GRAYSON, DAVON, EAST CAROLINA, WR
+*GREEN, RASHEEM, USC, DL
+GRIFFIN, SHAQUEM, CENTRAL FLORIDA, LB
+*GUICE, DERRIUS, LSU, RB
+
+
+HALEY, GRANT, PENN ST., DB
+HAMILTON, DAESEAN, PENN ST., WR
+HAMILTON, SHAUN DION, ALABAMA, LB
+HAND, DA'SHAWN, ALABAMA, DL
+HARRIS, DAVONTAE, ILLINOIS ST., DB
+HARRIS, MARCELL, FLORIDA, DB
+HARRISON, DESMOND, WEST GEORGIA, OL
+*HARRISON, RONNIE, ALABAMA, DB
+HAYNES, MARQUIS, MISSISSIPPI, DL
+HEARN, TAYLOR, CLEMSON, OL
+HEARNS, JAMES, LOUISVILLE, LB
+*HENDERSON, QUADREE, PITTSBURGH, WR
+HENDERSON, ZAY, TEXAS A&M, DL
+HERNANDEZ, WILL, UTEP, OL
+HERNDON, CHRIS, MIAMI, TE
+HICKS, KYLE, TEXAS CHRISTIAN, RB
+HILL, BJ, NORTH CAROLINA ST., DL
+*HILL, HOLTON, TEXAS, DB
+*HINES, NYHEIM, NORTH CAROLINA ST., RB
+*HOLLAND, JEFF, AUBURN, LB
+HOLMES, JALYN, OHIO ST., DL
+HUBBARD, SAM, OHIO ST., DL
+*HUGHES, MIKE, CENTRAL FLORIDA, DB
+*HURST., HAYDEN, SOUTH CAROLINA, TE
+HURST., MAURICE, MICHIGAN, DL
+
+IGWEBUIKE, GODWIN, NORTHWESTERN, DB
+*IYIEGBUNIWE, JOEL, WESTERN KENTUCKY, LB
+*IZZO, RYAN, FLORIDA ST., TE
+
+
+JACKSON, DARIUS, JACKSONVILLE ST-AL, LB
+*JACKSON, DONTE, LSU, DB
+*JACKSON, JC, MARYLAND, DB
+*JACKSON, JOSH, IOWA, DB
+JACKSON, JUSTIN, NORTHWESTERN, RB
+*JACKSON, LAMAR, LOUISVILLE, QB
+JACOBS, LEON, WISCONSIN, LB
+JAMERSON, NATRELL, WISCONSIN, DB
+*JAMES, DERWIN, FLORIDA ST., DB
+*JAMES, RICHARD, MIDDLE TENNESSEE ST., WR
+*JEFFERSON, MALIK, TEXAS, LB
+JEWELL, JOSEY, IOWA, LB
+JOHNSON, DANNY, SOUTHERN A&M, DB
+*JOHNSON, KERRYON, AUBURN, RB
+JOHNSON, TARON, WEBER ST., DB
+JONES, CHRIS, NEBRASKA, DB
+JONES, JAMARCO, OHIO ST., OL
+JONES, JUSTIN, NORTH CAROLINA ST., DL
+*JONES, RONALD, USC, RB
+JONES, SAM, ARIZONA ST., OL
+JONES-SMITH, JARYD, PITTSBURGH, OL
+JOSEPH, MICHAEL, DUBUQUE, DB
+
+
+KALAMBAYI, PETER, STANFORD, LB
+KALU, JOSHUA, NEBRASKA, DB
+*KELLY, JOHN, TENNESSEE, RB
+KELLY, KAMERON, SAN DIEGO ST., DB
+*KEY, ARDEN, LSU, DL
+KING, JAMARCUS, SOUTH CAROLINA, DB
+*KIRK, CHRISTIAN, TEXAS A&M, WR
+KISER, MICAH, VIRGINIA, LB
+
+LACY, CHRIS, OKLAHOMA ST., WR
+LANDRY, HAROLD, BOSTON COL, DL
+*LASLEY, JORDAN, UCLA, WR
+LAULETTA, KYLE, RICHMOND, QB
+LAZARD, ALLEN, IOWA ST., WR
+LEE, TANNER, NEBRASKA, QB
+LEONARD, DARIUS, SOUTH CAROLINA ST., LB
+LEONARD, RICK, FLORIDA ST., OL
+LEWIS, TYQUAN, OHIO ST., DL
+*LITTON, CHASE, MARSHALL, QB
+LOONEY, JAMES, CALIFORNIA, DL
+LOTULELEI, LOWELL, UTAH, DL
+
+
+MADDOX, AVONTE, PITTSBURGH, DB
+MADISON, COLE, WASHINGTON ST., OL
+MALONE, KJ, LSU, OL
+*MARTIN, TJ, WASHINGTON ST., WR
+*MATA'AFA, HERCULES, WASHINGTON ST., DL
+MAYFIELD, BAKER, OKLAHOMA, QB
+*MCCLOUD, RAYMOND, CLEMSON, WR
+MCCRAY, MIKE, MICHIGAN, LB
+MCDERMOTT, KC, MIAMI, OL
+*MCFADDEN, TARVARUS, FLORIDA ST., DB
+MCGLINCHEY, MIKE, NOTRE DAME, OL
+*MCINTOSH, RJ, MIAMI, DL
+*MCKENZIE, KAHLIL, TENNESSEE, DL
+*MEEKS, QUENTON, STANFORD, DB
+MICHEL, SONY, GEORGIA, RB
+MILLER, ANTHONY, MEMPHIS, WR
+*MILLER, KOLTON, UCLA, OL
+MITCHELL, STEVEN, USC, WR
+*MOORE, DJ, MARYLAND, WR
+MOORE, J'MON, MISSOURI, WR
+MOORE, KAMRIN, BOSTON COL, DB
+MOORE, SKAI, SOUTH CAROLINA, LB
+
+*NALL, RYAN, OREGON ST., RB
+NEAL, SIRAN, JACKSONVILLE ST-AL, DB
+*NELSON, NICK, WISCONSIN, DB
+NELSON, QUENTON, NOTRE DAME, OL
+NICHOLS, BILAL, DELAWARE, DL
+NICKERSON, PARRY, TULANE, DB
+NNADI, DERRICK, FLORIDA ST., DL
+*NORTON, KENDRICK, MIAMI, DL
+NOTEBOOM, JOE, TEXAS CHRISTIAN, OL
+NWOSU, UCHENNA, USC, LB
+
+O'DANIEL, DORIAN, CLEMSON, LB
+OKORAFOR, CHUKWUMA, WESTERN MICHIGAN, OL
+OKORONKWO, OGBONNIA, OKLAHOMA, LB
+*OLIVER, ISAIAH, COLORADO, DB
+O'NEILL, BRIAN, PITTSBURGH, OL
+
+PARKER, BRANDON, NORTH CAROLINA A&T ST., OL
+PARRIS, TIMON, STONY BROOK, OL
+*PAYNE, DA'RON, ALABAMA, DL
+PENNY, RASHAAD, SAN DIEGO ST., RB
+PETTIS, DANTE, WASHINGTON, WR
+*PETTWAY, KAMRYN, AUBURN, RB
+PHILLIPS, CAMERON, VIRGINIA TECH, WR
+PHILLIPS, DARIUS, WESTERN MICHIGAN, DB
+PHILLIPS, HARRISON, STANFORD, DL
+PHILLIPS, SKYLER, IDAHO ST., OL
+*PINEIRO, EDDY, FLORIDA, PK
+PRICE, BILLY, OHIO ST., OL
+PRINGLE, BYRON, KANSAS ST., WR
+PUGH, JACOB, FLORIDA ST., LB
+QUESSENBERRY, SCOTT, UCLA, OL
+
+*QUINN, TREY, SMU, WR
+
+
+RAGNOW, FRANK, ARKANSAS, OL
+RANKIN, MARTINAS, MISSISSIPPI ST., OL
+REDFIELD, MAX, INDIANA-PENN, DB
+*REED, DJ, KANSAS ST., DB
+*REID, JUSTIN, STANFORD, DB
+RICHARD, DEMARIO, ARIZONA ST., RB
+*RICHARDSON, WILL, NORTH CAROLINA ST., OL
+*RIDLEY, CALVIN, ALABAMA, WR
+ROBERTS, STEPHEN, AUBURN, DB
+*ROBERTSON, KOREY, SOUTHERN MISSISSIPPI, WR
+ROLLAND-JONES, JA'VON, ARKANSAS ST., DL
+*ROSEN, JOSH, UCLA, QB
+ROTIMI, OLUBUNMI, OLD DOMINION, DL
+RUDOLPH, MASON, OKLAHOMA ST., QB
+
+SAM, CHRISTIAN, ARIZONA ST., LB
+SAMUELS, JAYLEN, NORTH CAROLINA ST., TE
+SANDERS, DOMINICK, GEORGIA, DB
+SCALES, TEGRAY, INDIANA, LB
+*SCARBROUGH, BO, ALABAMA, RB
+*SCHULTZ, DALTON, STANFORD, TE
+SCOTT, JALEEL, NEW MEXICO ST., WR
+SCOTT, JK, ALABAMA, P
+SENAT, DEADRIN, SOUTH FLORIDA, DL
+SENAT, GREG, WAGNER, OL
+*SETTLE, TIM, VIRGINIA TECH, DL
+SHELTON, COLEMAN, WASHINGTON, OL
+SHEPHERD, NATHAN, FORT HAYS ST., DL
+SHIMONEK, NIC, TEXAS TECH, QB
+*SMITH, ANDRE, NORTH CAROLINA, LB
+SMITH, BRADEN, AUBURN, OL
+*SMITH, ROQUAN, GEORGIA, LB
+SMITH, TRE'QUAN, CENTRAL FLORIDA, WR
+*SMITH, VAN, CLEMSON, DB
+SMYTHE, DURHAM, NOTRE DAME, TE
+*SPEAKS, BREELAND, MISSISSIPPI, DL
+*ST BROWN, EQUANIMEOUS, NOTRE DAME, WR
+STALLWORTH, TAYLOR, SOUTH CAROLINA, DL
+STEWART, MJ, NORTH CAROLINA, DB
+STREET, KENTAVIUS, NORTH CAROLINA ST., DL
+STROMAN, GREG, VIRGINIA TECH, DB
+SULLIVAN, CHANDON, GEORGIA ST., DB
+SUTTON, COURTLAND, SMU, WR
+*SWEAT, JOSH, FLORIDA ST., DL
+
+
+*TATE, AUDEN, FLORIDA ST., WR
+TAYLOR, ROD, MISSISSIPPI, OL
+TELLER, WYATT, VIRGINIA TECH, OL
+THOMAS, CHAD, MIAMI, DL
+THOMAS, IAN, INDIANA, TE
+THOMAS, JORDAN, MISSISSIPPI ST., TE
+THOMAS, JT, OKLAHOMA, DB
+THOMAS, MATTHEW, FLORIDA ST., LB
+THOMAS, ROC, JACKSONVILLE ST-AL, RB
+*THOMPSON, TRENT, GEORGIA, DL
+TOLIVER, HENRE', ARKANSAS, DB
+*TOLIVER, KEVIN, LSU, DB
+TOTH, BRETT, ARMY, OL
+TOWNSEND, JOHNNY, FLORIDA, P
+TRIPUCKA, SHANE, TEXAS A&M, P
+TURAY, KEMOKO, RUTGERS, LB
+
+UHATAFE, SALESI, UTAH, OL
+
+VALDES-SCANTLING, MARQUEZ, SOUTH FLORIDA, WR
+*VANDER ESCH, LEIGHTON, BOISE ST., LB
+*VEA, VITA, WASHINGTON, DL
+VICTOR, AZEEM, WASHINGTON, LB
+
+
+WADE, D'MONTRE, MURRAY ST., DB
+WADLEY, AKRUM, IOWA, RB
+WALKER, TREY, LOUISIANA-LAFAYETTE, DB
+WALLACE, LEVI, ALABAMA, DB
+*WALTON, MARK, MIAMI, RB
+*WARD, DENZEL, OHIO ST., DB
+WARNER, FRED, BRIGHAM YOUNG, LB
+*WARREN, CHRIS, TEXAS, RB
+WASHINGTON, JAMES, OKLAHOMA ST., WR
+WATTS, ARMANI, TEXAS A&M, DB
+WEAH, JESTER, PITTSBURGH, WR
+*WEATHERSBY, TOBY, LSU, OL
+WEBB, DAMON, OHIO ST., DB
+WELLS, DAVID, SAN DIEGO ST., TE
+WELSH, SEAN, IOWA, OL
+WHITE, KA'RAUN, WEST VIRGINIA, WR
+WHITE, KYZIR, WEST VIRGINIA, DB
+WHITE, MIKE, WESTERN KENTUCKY, QB
+*WHITEHEAD, JORDAN, PITTSBURGH, DB
+*WICKER, JOJO, ARIZONA ST., DL
+WIENEKE, JAKE, SOUTH DAKOTA ST., WR
+WILKINS, JORDAN, MISSISSIPPI, RB
+*WILLIAMS, CONNOR, TEXAS, OL
+WILLIAMS, DARREL, LSU, RB
+WILSON, CEDRICK, BOISE ST., WR
+*WILSON, EDDY, PURDUE, DL
+WILSON, JEFF, NORTH TEXAS, RB
+WIMS, JAVON, GEORGIA, WR
+WINBUSH, ANTHONY, BALL ST., DL
+WINSLOW, RYAN, PITTSBURGH, P
+WOODSIDE, LOGAN, TOLEDO, QB
+WORLEY, CHRIS, OHIO ST., LB
+WYNN, ISAIAH, GEORGIA, OL
+
+YIADOM, ISAAC, BOSTON COL, DB
+YOUNG, KENNY, UCLA, LB
+YOUNG, TREVON, LOUISVILLE, DL"
+
+bind_rows(
+txt %>%
+str_split("\n") %>%
+unlist %>%
+.[. != ''] %>%
+gsub("[*]", "", .) %>%
+as.data.frame %>%
+setNames("draft") %>%
+separate(
+draft,
+sep = ', ',
+into = c('last', 'first', 'school', 'position')
+) %>%
+mutate_at(vars(last, first, school),  ~ str_to_title(.)) %>%
+mutate(
+first = ifelse(nchar(first) <= 2, toupper(first), first),
+school = ifelse(nchar(school) <= 3, toupper(school), school),
+name = paste(first, last),
+last = NULL,
+first = NULL,
+school = gsub("St.", "State", school),
+draft_year = 2018,
+name = ifelse(
+name == 'Josh Allen',
+'Josh Allen (WYO)',
+ifelse(
+name == "Lamar Jackson",
+"Lamar Jackson (LOU)",
+ifelse(
+grepl("Aruna", name),
+"Adi Aruna",
+ifelse(
+name == 'BJ Hill',
+"B.J. Hill",
+ifelse(
+name == 'Chris Campbell',
+'Christian Campbell',
+ifelse(
+name == 'Chris Herndon',
+'Christopher Herndon',
+ifelse(
+name == 'Foley Fatusaki',
+'Folorunso Fatusaki',
+ifelse(
+name == 'Joe Noteboom',
+'Joseph Noteboom',
+ifelse(
+name == 'Ola Adeniyi',
+'Olasunkanmi Adeniyi',
+ifelse(
+name == "RJ McIntosh",
+"R.J. McIntosh",
+ifelse(name == 'Richard James', 'Richie James', name)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+),
+'http://www.nfl.com/news/story/0ap3000001017299/article/2019-nfl-scouting-combine-full-list-of-invited-prospects' %>%
+read_html %>%
+html_nodes("p") %>%
+html_text %>%
+.[grepl("»", .)] %>%
+str_split("»") %>%
+unlist %>%
+str_squish %>%
+gsub("Yosh,", "Yosh", .) %>%
+as.data.frame %>%
+setNames('draft') %>%
+separate(
+draft,
+sep = ', ',
+into = c('name', 'position', 'school')
+) %>%
+filter(!is.na(position)) %>%
+mutate(
+draft_year = 2019,
+name = ifelse(
+name == 'Bennett Powers',
+'Ben Powers',
+ifelse(
+name == 'Cameron Smith',
+'Cam Smith',
+ifelse(
+name == 'Christopher Lindstrom',
+'Chris Lindstrom',
+ifelse(
+name == 'Clay Thorson',
+'Clayton Thorson',
+ifelse(
+name == 'David Long' & school == 'Michigan',
+'David Long (UM)',
+ifelse(
+name == 'David Long' &
+school == 'West Virginia',
+'David Long (WVU)',
+ifelse(
+name == 'Iman Lewis-Marshall',
+"Iman Marshall",
+ifelse(
+name == 'Josh Allen',
+'Josh Allen (UK)',
+ifelse(
+name == 'KJ Johnson',
+'KeeSean Johnson',
+ifelse(
+name == 'Joseph Kendall',
+'Kendall Joseph',
+ifelse(
+name == 'Mike Jackson',
+'Michael Jackson',
+ifelse(
+name == 'Mike Jordan',
+'Michael Jordan',
+ifelse(
+name == 'Sean Bunting',
+'Sean Murphy-Bunting',
+ifelse(name == 'Taki Takitaki', 'Sione Takitaki', name)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+)
+),
+'http://www.nfl.com/news/story/0ap3000001101482/article/2020-nfl-scouting-combine-full-list-of-invited-prospects' %>%
+read_html %>%
+html_nodes("p") %>%
+html_text %>%
+.[grepl("»", .)] %>%
+str_split("»") %>%
+unlist %>%
+str_squish %>%
+gsub("Jonah Jackson OL", "Jonah Jackson, OL", .) %>%
+as.data.frame %>%
+setNames('draft') %>%
+separate(
+draft,
+sep = ', ',
+into = c('name', 'position', 'school')
+) %>%
+filter(!is.na(position)) %>%
+mutate(
+name = word(name, 1, 2),
+school = coalesce(school, position),
+position = ifelse(position == 'Ohio State', 'G', position)
+) %>%
+mutate(
+name = ifelse(
+name == 'Cameron Brown',
+'Cam Brown',
+ifelse(
+name == "Mike Onwenu",
+"Michael Onwenu",
+ifelse(
+name == "Mike Warren",
+"Michael Warren",
+ifelse(
+name == "Rob Windsor",
+"Robert Windsor",
+ifelse(
+name == 'Jacob Breeland',
+'Jake Breeland',
+ifelse(
+name == 'Jeff Okudah',
+'Jeffrey Okudah',
+ifelse(
+name == 'Prince Tega',
+'Prince Tega Wanogho',
+ifelse(
+name == "C.J. O'Grady",
+"Cheyenne O'Grady",
+ifelse(name == "Lamar Jackson", "Lamar Jackson (NEB)", name)
+)
+)
+)
+)
+)
+)
+)
+),
+draft_year = 2020,
+name = ifelse(
+name == 'Ben Victor',
+'Binjimen Victor',
+ifelse(name == 'Jet Anderson', 'Darius Anderson', name)
+)
+) %>%
+filter(!grepl('Tipa', name))
+) -> comb
+
+mocks %>%
+distinct(draft_year, name, position, school) %>%
+stringdist_inner_join(
+comb %>%
+distinct(name, draft_year),
+by = c(name = "name"),
+max_dist = 5,
+distance_col = "distance"
+) %>%
+group_by(name.x) %>%
+filter(draft_year.x == max(draft_year.x)) %>%
+filter(distance == min(distance, na.rm = TRUE)) %>%
+ungroup %>%
+filter(distance <= 2) %>%
+filter(draft_year.x == draft_year.y) %>%
+select(-contains('.y'),-distance) %>%
+setNames(gsub(".x", "", names(.))) -> comb_mock
+
+mocks %>%
+distinct(draft_year, name, position, school) %>%
+stringdist_inner_join(
+read_csv(
+"https://gist.githubusercontent.com/benjaminrobinson/e2f3b51bb8e0a1b17d292b7b88d95f1d/raw/71aecaa0925f528597fc18de3c5bd36e075933fd/ras.csv"
+) %>%
+select(-position) %>%
+rename(name = player_name) %>%
+mutate(
+ras_class = case_when(
+ras > 8 ~ 'Elite',
+ras > 5.5 ~ 'Above Average',
+ras > 4.5 ~ 'Average',
+!is.na(ras) ~ 'Poor'
+),
+ras_class = factor(ras_class, levels = c('Poor', 'Average', 'Above Average', 'Elite')),
+atr_class = case_when(
+all_time_ras > 8 ~ 'Elite',
+all_time_ras > 5.5 ~ 'Above Average',
+all_time_ras > 4.5 ~ 'Average',
+!is.na(all_time_ras) ~ 'Poor'
+),
+atr_class = factor(atr_class, levels = c('Poor', 'Average', 'Above Average', 'Elite')),
+name = case_when(
+name == 'Josh Allen' & draft_year == 2018 ~ 'Josh Allen (WYO)',
+name == 'Josh Allen' & draft_year == 2019 ~ 'Josh Allen (UK)',
+name == "Jessie Bates III" ~ "Jessie Bates",
+name == 'William Clapp' ~ "Will Clapp",
+name == 'Marquez Scantling' ~ 'Marquez Valdes-Scantling',
+name == 'Chris Warren III' ~ "Chris Warren",
+name == 'Irv Smith Jr.' ~ 'Irv Smith',
+name == 'Darnell Savage Jr.' ~ 'Darnell Savage',
+name == 'Cameron Smith' ~ 'Cam Smith',
+name == 'Olisaemeka Udoh' ~ 'Oli Udoh',
+name == 'Terry Beckner Jr' ~ 'Terry Beckner',
+name == 'Jamal Davis II' ~ 'Jamal Davis',
+name == 'David Long' ~ 'David Long (UM)',
+name == 'Ugochukwu Amadi' ~ 'Ugo Amadi',
+name == 'Iosua Opeta' ~ 'Sua Opeta',
+name == "Stanley Morgan Jr." ~ 'Stanley Morgan',
+TRUE ~ name
+)
+),
+by = c(name = "name"),
+max_dist = 5,
+distance_col = "distance"
+) %>%
+group_by(name.x) %>%
+filter(draft_year.x == max(draft_year.x)) %>%
+filter(distance == min(distance, na.rm = TRUE)) %>%
+ungroup %>%
+filter(distance <= 2) %>%
+filter(draft_year.x == draft_year.y) %>%
+select(-contains('.y'), -distance) %>%
+setNames(gsub(".x", "", names(.))) -> ras_mock
+  
+mocks %>% inner_join(comb_mock) %>% inner_join(ras_mock) -> mocks
+
+mocks %>%
+  mutate(
+  days_combine = as.numeric(date - combine_date),
+  pre_combine = ifelse(days_combine <= 0, "Pre-Combine", "Post Combine") %>% factor(levels = c("Pre-Combine", "Post Combine"))
+  ) %>%
+  group_by(draft_year, name, position, school, pre_combine, ras_class) %>%
+  summarize(n = n_distinct(site, url, date),
+  adp = mean(pick, na.rm = TRUE)) %>%
+  group_by(draft_year, name, position, school, ras_class) %>%
+  mutate(n = sum(n, na.rm = TRUE)) %>%
+  spread(pre_combine, adp) %>%
+  clean_names %>%
+  mutate_at(vars(pre_combine, post_combine), ~ coalesce(., 256)) %>%
+  mutate(
+  diff = pre_combine - post_combine,
+  log_diff = log10(pre_combine) - log10(post_combine)
+  ) -> pre_post
+  
+rm(comb_mock, comb, txt, ras_mock)
+```
+
+### Run, Rich, Run!
+
+![alt text](https://usatftw.files.wordpress.com/2019/02/usp-nfl_-combine-1.jpg "Did Rich Eisen boost his stock in Indy?, Photo from USA Today")
+
+For people who follow the NFL Draft, the draft process can be readily demarcated into managable chunks:  the end of the college football season bleeds into draft declarations which then transition smoothly to the playoffs and the Super Bowl to the college All Star games and finally to where we are now:  the NFL Scouting Combine. The Combine marks the last major milestone (pretty much) before we reach the draft in all its glory in late April.
+
+Like most of my endeavors with this blog, I aim to ask a question and answer it using the data that I have collected as part of the [#GrindingtheMocks](https://twitter.com/search?q=%23GrindingtheMocks) project! We know that for the players it feels like a lot rides on the Combine. And while the combine isn't necessarily the end all-be all for NFL Draft hopefulls, it mostly functions as a separator--helping delineate the contenders from pretenders when it comes to athletic benchmarks for different positions. But what happens post-draft to players' draft stocks that we can directly (as much as possible) relate to the Combine? In the bubble that is the NFL Draft community and media, we hear a lot of annecdotal information about how a players' draft stock rose because of their showing at the Combine. So, let's try to quantify that!
+
+To do that, I'll need a composite measure of athletic performance. Luckily, we have those! [Kent Lee Platte](https://twitter.com/MathBomb) has created such a measure of athletic performance that he calls [Relative Athletic Scores](https://relativeathleticscores.com/) or RAS for short (See?  I told you we'd get there!). According to Kent's explainer on RAS on the [Pride of Detroit blog](https://www.prideofdetroit.com/2016/5/16/11678686/relative-athletic-scores-what-they-are-and-why-they-work):  "Wouldn't it be great if we could just put a number on these measurements that would show the context right in the number? Like you could see a score for a 40-time and know whether it was good or bad for their position? From that simple idea, Relative Athletic Scores was born."
+
+In the past two draft classes, we've had perfect examples of perceived winners and losers at NFL Combine: D.K. Metcalf, the wide receiver from Ole Miss, who's performance at the 2019 Combine was a revelation, (he scored an `r mocks$ras_class[mocks$name == 'D.K. Metcalf'] %>% unique` `r mocks$ras[mocks$name == 'D.K. Metcalf'] %>% unique` Relative Atheltic Score, don't worry I'll explain later), and Orlando Brown, the offensive tackle from Oklahoma, who's athletic testing left draft analysts with more questions than answers (Brown scored a `r mocks$ras_class[mocks$name == 'Orlando Brown'] %>% unique` RAS of `r mocks$ras[mocks$name == 'Orlando Brown'] %>% unique`) given his impressive performance on the field as a Sooner.
+
+Let's look at each player's mock draft data from 2 weeks before and 2 weeks after the combine, demarcating the combine with a vertical line and looking at trends in the data on either side of the cut-off point:
+
+```{r dk_orlando_brown, echo=FALSE, include=TRUE}
+mocks %>%
+    filter(name == 'Orlando Brown' | name == 'D.K. Metcalf') %>%
+    mutate(days_combine = as.numeric(date - combine_date),
+           pre_combine = ifelse(days_combine <= 0, 1, 0)) %>%
+    ggplot(
+        aes(x = days_combine, y = pick)
+    ) +
+    geom_smooth(method = 'lm', aes(group = pre_combine)) +
+    geom_jitter(aes(color = type)) +
+    facet_wrap(~paste(name, position, school, sep = ', ')) +
+    scale_y_reverse() +
+    geom_vline(
+        aes(xintercept = 0),
+        linetype = "dashed",
+        size = 1,
+        color = 'black'
+    ) +
+    labs(
+        x = "Number of Days from NFL Combine",
+        y = "Mock Draft Pick",
+        color = "Mock Draft Type",
+        title = "D.K. Metcalf and Orlando Brown",
+        subtitle = "A Tale of Two Combines",
+        caption = '@benj_robinson | Data: #GrindingtheMocks, 2020.'
+    ) +
+    theme_pander() +
+    scale_color_colorblind()
+```
+
+When we look at trends pre and post combine for these two players we can see what happened to each player's stock around the date of the NFL Combine:  Brown's stock fell and his range of outcomes grew while Metcalf's stock rose quite a bit. Although these two players' combine experiences make for a good story, their testing results represent outliers when it comes to combine athletic performances. I'm more interested in what the average effect for a player is and how this type of result varies between the various levels of athletic performance.
+
+### Lost in the Meat Market
+Because so many players participate in the NFL Combine, more than 300 players each draft season, the impact of the combine is not easily assessed. In my last blog post about the impact of [Tua Tagovailoa's injury](https://benjaminrobinson.github.io/2019/12/30/2019-12-30-have-rumors-of-tua-s-demise-been-greatly-exaggerated/), I employed a classic difference in differences design that looked at the difference between Tua and non-Tua players (all players and just quarterbacks) pre and post Tua's injury to get a more realistic estimate of the impact of the injury of Tua's Expected Draft Position. However, because the group of players participating in the combine is so high (and players with high status/draft stock often do no even participate in the combine, instead performing drills at the friendly confines of their Pro Days), we can't rely on the trusty diff-in-diff (as the economists call it) to get our more causal estimates of the impact of the NFL Combine.
+
+Instead, I'm going to employ a more basic approach but instead of just looking pre and post combine, I'm interested in seeing if there are differences between players that perform well at the combine versus those that do not. Luckily, the Kent Lee Platte created Relative Athletic Score classifies overall RAS into four high level buckets:
+
+```{r ras_segment_table, echo=FALSE, include=TRUE}
+data.frame(
+  `RAS Category` = c("Elite", "Above Average", "Average", "Poor"),
+  `RAS Range` = c("> 8", "<= 8 & > 5.5", "<= 5.5 & > 4.5", "<= 4.5")
+) %>%
+  setNames(gsub("[.]", " ", names(.))) %>%
+  kable
+```
+
+With these established athleticism ranges, we can begin to look beneath the surface of the overall trends pre and post combine for these subgroups and positions. And that's going to be helpful because the overall trends look like very bland.
+
+```{r ras_class_0, echo=FALSE, include=TRUE}
+pre_post %>%
+  filter(n >= 10) %>%
+  ggplot(aes(pre_combine, post_combine)) +
+  geom_point() +
+  geom_smooth(method = 'gam', aes(weight = n)) +
+  theme_pander() +
+  labs(
+  x = "Pre-Combine ADP",
+  y = "Post-Combine ADP",
+  subtitle = "Looks Pretty Normally Distributed",
+  title = "The Combine Effect"
+  ) +
+  geom_abline(
+  slope = 1,
+  intercept = 0,
+  size = 1,
+  linetype = 2
+  ) +
+  expand_limits(y = 1, x = 1) -> p1
+
+pre_post %>%
+    filter(n >= 10) %>%
+    ggplot(aes(diff)) +
+    geom_density(color = 'black', fill = 'black', alpha = .75) +
+    theme_pander() +
+    scale_fill_colorblind() +
+    scale_color_colorblind() +
+    labs(
+        x = "Pre/Post Combine ADP Difference",
+        y = "Density",
+        caption = '@benj_robinson | Data: #GrindingtheMocks, 2020.'
+    ) -> p2
+
+p1 & p2
+```
+
+However, if we look below the surface, we can find some interesting tidbits!
+
+```{r ras_class_1, echo=FALSE, include=TRUE}
+pre_post %>%
+  filter(n >= 10) %>%
+  ggplot(aes(pre_combine, post_combine, group = ras_class, color = ras_class)) +
+  geom_point() +
+  geom_smooth(method = 'gam', aes(weight = n)) +
+  theme_pander() +
+  labs(x = "Pre-Combine ADP",
+  y = "Post-Combine ADP",
+  subtitle = "Above Average/Average Combine Athletes Mostly Unaffected",
+  title = "Poor/Elite Combine Athletes' Draft Stocks Impacted Most",
+  color = "RAS Classification",
+  caption = '@benj_robinson | Data: #GrindingtheMocks/@MathBomb, 2020.') +
+  scale_color_colorblind() +
+  facet_wrap( ~ ras_class, nrow = 1) +
+  geom_abline(
+  slope = 1,
+  intercept = 0,
+  size = 1,
+  linetype = 2
+  ) +
+  expand_limits(y = 1, x = 1)
+```
+
+Prospects with Average or Above Average Relative Athletic Scores on average seem to have fairly little change in their Average Draft Positions (ADP) but prospects on the Elite and Poor side of the RAS spectrum tend to have their mock draft stock changed the most but it seems to be happening on the tails more than anything else. Meaning that if a player was expected to have a strong combine performance, mock drafts tend to for the most part (on average) not reward those as much. We can see that to begin with there are not many prospects with a high ADP that also have poor Relative Athletic Scores. I take this to mean that mock drafters tend to value players that they believe to be athletic (most likely because NFL teams [tend to draft players that are more athletic](https://relativeathleticscores.com/2017/04/23/does-general-athleticism-lead-to-high-draft-selection/), according to RAS, higher than players that are not particularly athletic).
+
+```{r ras_class_2, echo=FALSE, include=TRUE, message=FALSE}
+pre_post %>%
+  filter(n >= 10) %>%
+  ggplot(aes(x = diff, y = ras_class)) +
+  geom_density_ridges(aes(color = ras_class, fill = ras_class, alpha = 0.75)) +
+  theme_pander() +
+  labs(
+  y = "RAS Classification",
+  x = "Pre/Post Combine Difference in ADP",
+  title = "To the Combine Victors Go the Spoils",
+  fill = "RAS Classification",
+  caption = '@benj_robinson | Data: #GrindingtheMocks/@MathBomb, 2020.'
+  ) +
+  scale_color_colorblind() +
+  scale_fill_colorblind() +
+  guides(color = FALSE, alpha = FALSE)
+```
+
+The story of this ridgeplot advances the narrative set up by the scatterplot:  poor and elite athletes tend to lose and gain the most post-combine relative to their pre-combine ADP while average and above average athletes tend to cluster around zero in fairly predictable ways.
+
+Even when we look at broad position groupings there doesn't seem to be a clear effect. It truly looks that on a high level post-combine changes in Average Draft Position mostly comes down to athletic performance, which I will argue kind of makes a lot of sense since this is the information that is being presented to the mock draft making public!
+
+```{r ras_class_3, echo=FALSE, include=TRUE, message=FALSE}
+pre_post %>%
+  filter(n >= 10) %>%
+  mutate(
+      pos_group = case_when(
+        position %in% c('QB', 'WR', 'TE', 'FB', 'RB', 'QB') ~ 'Offensive Skill',
+        position %in% c('G', 'OT', 'C') ~ 'Offensive Line',
+        position %in% c('CB', 'S') ~ 'Defensive Backs',
+        position %in% c('DE', 'DT', 'LB') ~ 'Defensive Front Seven',
+        TRUE ~ position
+      )
+  ) %>%
+  ggplot(aes(x = diff, y = pos_group)) +
+  geom_density_ridges2(aes(alpha = 0.75, scale = 1)) +
+  theme_pander() +
+  labs(
+  y = "Football Position Group",
+  x = "Pre and Post Combine Difference in ADP",
+  title = "To the Combine Victors Go the Spoils",
+  caption = '@benj_robinson | Data: #GrindingtheMocks/@MathBomb, 2020.'
+  ) +
+  scale_color_colorblind() +
+  scale_fill_colorblind() +
+  guides(color = FALSE, alpha = FALSE)
+```
+
+### A Hedonic Pricing Theory Of Mock Drafts?
+In hindsight, I can see why we don't really see an overarching combine effect even across positions and positional groups, at least using the methods and data that I have employed. We see that there is a combine effect that is differentiated by overall qualities of athleticism.  Further analysis could look deeper into athleticism and whether the athelticism effect is driven by certain types of athleticism more than others and if some positions benefit from certain types of athleticism more than others.
+
+Ultimately, I am skeptical that post-combine bumps are durable in nature while I'm a little more open to the idea that a very bad combine can open up a player to further scrutiny that might lead them to continue to fall down mock draft boards. I believe that the expectations of a players' athleticism (or lack of it) are implicitly bundled into a player's mock draft, almost like a hedonic price mechanism, where model can tell us more about the value of non-market goods like an injury or a combine performance (this goes back to my [theory of mock drafts](https://benjaminrobinson.github.io/2019/03/25/2019-03-11-grinding-the-mocks-a-theory-of-mock-drafts/)).
+
+```{r metcalf_brown_2, echo=FALSE, include=TRUE, message=FALSE}
+bind_rows(pin_get("2018_Mocks"),
+pin_get("2019_Mocks")) %>%
+mutate_at(vars(contains("date")),
+list(~ as.Date(., format = "%m/%d/%Y"))) %>%
+anti_join(bind_rows(
+pin_get("2018_Undraftable"),
+pin_get("2019_Undraftable"),
+pin_get("2020_Undraftable")
+)) %>% left_join(comb_date) %>%
+filter(name %in% c('D.K. Metcalf', 'Orlando Brown')) %>%
+  ggplot(aes(date, pick, group = name)) +
+  geom_smooth() +
+  geom_vline(aes(xintercept = combine_date), size = 1, linetype = 1) +
+  geom_vline(aes(xintercept = combine_date %m+% weeks(2)), size = 1, linetype = 2) +
+  geom_vline(aes(xintercept = combine_date %m-% weeks(2)), size = 1, linetype = 2) +
+  theme_pander() +
+  scale_y_reverse() +
+  scale_color_colorblind() +
+  facet_wrap(~ paste(name, position, school, sep = ", "), scales = 'free_x') +
+  scale_x_date(date_breaks = "3 month",
+            labels = date_format("%b %Y")) +
+  labs(
+    x = "Date",
+    y = "Mock Draft Pick",
+    title = "Mock Draft Foresight?",
+    subtitle = "Draft Stock Rises/Falls Began Before the Combine",
+    caption = '@benj_robinson | Data: #GrindingtheMocks, 2020.'
+  )
+```
+
+Going back to our D.K. Metcalf and Orlando Brown example from the beginning of this post, Metcalf's bump from the combine didn't end up lasting and he eventually returned to something more resembling his stock from before the combine (and ended up getting drafted far later than expectation). On the other hand, Brown's historically bad combine led his draft stock to continue to decline as mock drafters second guessed their evaluations of his on-field play (and he also ended up going later than expected).
+
+Looking back at my analysis, I am not willing to go all in just yet on an efficient-markets hypothesis for mock drafts. However, I am becoming more open to the idea that, while mock drafts may not always get a seletion exactly right, the arc of a player's draft stock curve is generally indicative of that player's draft process.
+
+*Many thanks to Kent Lee Platte for sharing his Relative Athletic Score data with me. You can check out his work* **@MathBomb** *on Twitter and support his work financially by donating at this link:  https://www.paypal.com/paypalme2/Mathbomb.*

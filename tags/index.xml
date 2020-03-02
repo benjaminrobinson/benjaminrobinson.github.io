@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Benjamin Robinson</copyright>
-    <lastBuildDate>Mon, 30 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://benjaminrobinson.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Adp</title>
+      <link>https://benjaminrobinson.github.io/tags/adp/</link>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjaminrobinson.github.io/tags/adp/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Alabama</title>
@@ -22,9 +31,18 @@
     </item>
     
     <item>
+      <title>Combine</title>
+      <link>https://benjaminrobinson.github.io/tags/combine/</link>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjaminrobinson.github.io/tags/combine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Data Science</title>
       <link>https://benjaminrobinson.github.io/tags/data-science/</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://benjaminrobinson.github.io/tags/data-science/</guid>
       <description></description>
@@ -42,7 +60,7 @@
     <item>
       <title>Draft</title>
       <link>https://benjaminrobinson.github.io/tags/draft/</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://benjaminrobinson.github.io/tags/draft/</guid>
       <description></description>
@@ -51,7 +69,7 @@
     <item>
       <title>Nfl</title>
       <link>https://benjaminrobinson.github.io/tags/nfl/</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://benjaminrobinson.github.io/tags/nfl/</guid>
       <description></description>
@@ -60,7 +78,7 @@
     <item>
       <title>Nfl Draft</title>
       <link>https://benjaminrobinson.github.io/tags/nfl-draft/</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://benjaminrobinson.github.io/tags/nfl-draft/</guid>
       <description></description>
@@ -76,9 +94,18 @@
     </item>
     
     <item>
+      <title>Ras</title>
+      <link>https://benjaminrobinson.github.io/tags/ras/</link>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjaminrobinson.github.io/tags/ras/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Rstats</title>
       <link>https://benjaminrobinson.github.io/tags/rstats/</link>
-      <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://benjaminrobinson.github.io/tags/rstats/</guid>
       <description></description>

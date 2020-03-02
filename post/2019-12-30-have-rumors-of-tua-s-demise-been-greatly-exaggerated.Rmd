@@ -22,33 +22,20 @@ options(stringsAsFactors = FALSE, scipen = 999)
 library(tidyverse)
 library(ggthemes)
 library(jtools)
+library(pins)
 
-read_csv(
-"https://raw.githubusercontent.com/benjaminrobinson/GrindingtheMocks/master/data/Mocks.csv",
-col_types = cols(
-team = col_character(),
-primary = col_character(),
-secondary = col_character(),
-tertiary = col_character(),
-quaternary = col_character(),
-division = col_character(),
-location = col_character(),
-mascot = col_character(),
-sportslogos_name = col_character(),
-logo = col_character()
-)
-) %>%
+board_register(board = "local")
+
+pin_get("2020_Mocks") %>%
 mutate_at(vars(contains("date")),
-list(~ as.Date(., format = "%Y-%m-%d"))) %>%
+list(~ as.Date(., format = "%m/%d/%Y"))) %>%
 filter(date <= as.Date("2019-12-30")) %>%
 mutate(
 is_tua = ifelse(name == 'Tua Tagovailoa', 'Tua', 'Non-Tua'),
 days_before_draft = (draft_date - date) %>% as.numeric
 ) %>%
 anti_join(
-read_csv(
-'https://raw.githubusercontent.com/benjaminrobinson/GrindingtheMocks/master/data/Undraftable.csv'
-  )
+pin_get("2020_Undraftable")
 ) -> stock
 
 (as.Date('2020-04-23') - as.Date("2019-11-16")) %>% as.numeric -> num_days
