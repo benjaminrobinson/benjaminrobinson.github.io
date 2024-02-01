@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Big Data, Bigger Dreams"
+  title: "Small Data, Bigger Dreams"
   navbar:
     right:
       - about.qmd
