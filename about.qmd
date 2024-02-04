@@ -18,7 +18,7 @@ about:
       href: https://open.spotify.com/user/bjrobinson2/
     - icon: vinyl
       text: Discogs
-      href: https://www.discogs.com/user/benjaminrobinson/collection/
+      href: https://www.discogs.com/user/benjaminrobinson/collection
 ---
 
 Hello and welcome to my blog! Come on in and make yourself comfortable. Can I get you anything? Nothing? Well, then let me tell you a little about myself. I'm `r floor(as.numeric(Sys.Date()-as.Date("1990-09-13"))/365)` years old and have called the Washington, D.C. area home for the past `r floor(as.numeric(Sys.Date()-as.Date("2014-08-21"))/365)` years. I've spent time in Cincinnati (hometown), Pittsburgh (college), Los Angeles (graduate school), and now D.C., where I'm a Manager of Data Strategy & Insights at the [Universal Service Administrative Company](usac.org) focused on business intelligence, open data, and data science software products.
