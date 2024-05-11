@@ -13,9 +13,6 @@ about:
     - icon: github
       text: Github
       href: https://github.com/benjaminrobinson/
-    - icon: spotify
-      text: Spotify
-      href: https://open.spotify.com/user/bjrobinson2/
     - icon: vinyl
       text: Discogs
       href: https://www.discogs.com/user/benjaminrobinson/collection
@@ -28,7 +25,7 @@ You might know me from my work on [Grinding The Mocks](grindingthemocks.com), my
 But there's more to me than just sports analytics! In my personal life, I'm passionate about:
 
 -   being Jewish (✡️**and proud of it!)**
--   being the best uncle to my nephew (**❤️you Judah!**)
+-   being the best uncle to my nephew (**❤️you J!**)
 -   eating and making bagels (🥯**of all kinds!**)
 -   playing guitar (**electric and acoustic** 🎸!)
 -   and exploring cities (**on** 🦶,🚋, 🚌, **and in**💻!)
