@@ -18,14 +18,16 @@ about:
       href: https://www.discogs.com/user/benjaminrobinson/collection
 ---
 
-Hello and welcome to my blog! Come on in and make yourself comfortable. Can I get you anything? Nothing? Well, then let me tell you a little about myself. I'm `r floor(as.numeric(Sys.Date()-as.Date("1990-09-13"))/365)` years old and have called the Washington, D.C. area home for the past `r floor(as.numeric(Sys.Date()-as.Date("2014-08-21"))/365)` years. I've spent time in Cincinnati (hometown), Pittsburgh (college), Los Angeles (graduate school), and now D.C., where I'm a Manager of Data Strategy & Insights at the [Universal Service Administrative Company](usac.org) focused on business intelligence, open data, and data science software products.
+Hello and welcome to my blog! Come on in and make yourself comfortable. Can I get you anything? Nothing? Well then, let me tell you a little about myself. As you can probably tell from the URL, my name is Benjamin Robinson (although some folks call me Ben, which is also fine by me). I've lived in some great cities all across the country including: Cincinnati, OH (hometown), Pittsburgh, PA (college), Los Angeles, CA (graduate school), and now in Washington D.C., where I've lived since 2014.
 
-You might know me from my work on [Grinding The Mocks](grindingthemocks.com), my side project that uses mock drafts, the wisdom of crowds, and data science to predict the NFL Draft. I've been fortunate to work with NFL teams, agents, and football analytics companies as a data provider and to have my work featured in [FiveThirtyEight](https://archive.is/GmZ0E), [The New York Times](https://archive.is/1YgGr), and [Football Outsiders](https://archive.is/Ahhdd).
+Currently, I am a Manager of Data Strategy & Insights at the [Universal Service Administrative Company](https://www.usac.org) where my work focuses on managing the delivery of business intelligence and open data projects along with data science software and analytics product. However, there's a decent chance that you might know me from my work on [Grinding The Mocks](https://www.grindingthemocks.com), which is both a side project and a data/insights company I founded that uses mock drafts, the wisdom of crowds, and machine learning models to predict the NFL Draft. Through this work, I've been fortunate to work with NFL teams, agents, and football analytics companies as well as having my work featured in [FiveThirtyEight](https://archive.is/GmZ0E), [The New York Times](https://archive.is/1YgGr), and [Football Outsiders](https://archive.is/Ahhdd).
 
-But there's more to me than just sports analytics! In my personal life, I'm passionate about:
+But there's so much more to me than my work! In my personal life, I'm also passionate about:
 
--   being Jewish (✡️**and proud of it!)**
--   being the best uncle to my nephew (**❤️you J!**)
--   eating and making bagels (🥯**of all kinds!**)
--   playing guitar (**electric and acoustic** 🎸!)
--   and exploring cities (**on** 🦶,🚋, 🚌, **and in**💻!)
+-   being Jewish (✡️**and proud of it)**
+
+-   trying to be the best uncle to my niece and nephew (**❤️you J&D**)
+
+-   collecting vinyl records (**check out my Discogs**💽)
+
+-   rooting for my favorite sports teams (especially the **Cincinnati Reds** ⚾, **Liverpool Football Club** ⚽, and **PITT Panthers** 🏈 & 🏀)!
