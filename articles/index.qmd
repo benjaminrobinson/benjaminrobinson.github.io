@@ -1,0 +1,9 @@
+---
+title: "Published Articles"
+author: "Benjamin Robinson"
+listing: 
+  contents: articles.yml
+  type: table
+date: "2025-01-17"
+categories: [news]
+---
